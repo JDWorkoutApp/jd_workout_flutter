@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:workout_app/home_page.dart';
+import 'package:workout_app/login_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -49,11 +50,7 @@ class MyAppState extends State<MyApp> {
       );
     }
     return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('Not Login'),
-        ),
-      ),
+      home: LoginPage()
     );
   }
 }
