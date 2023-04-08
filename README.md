@@ -6,3 +6,6 @@
 * compile from android studio / IntelliJ IDEA Ultimate
   * can hot reload
 
+### Flutter install package
+
+`flutter pub get`
