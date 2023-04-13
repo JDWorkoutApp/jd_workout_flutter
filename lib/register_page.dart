@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:workout_app/api.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -69,6 +71,31 @@ class RegisterPageState extends State<RegisterPage> {
             ),
             ElevatedButton(
               onPressed: () {
+                print("register button pressed...");
+
+                if (_formKey.currentState!.validate()) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Processing Data')),
+                  );
+                  Api.register(
+                    _usernameController.text,
+                    _passwordController.text,
+                    _emailController.text,
+                  ).then((value) {
+                    print("api value...");
+                    print(value);
+                  }).catchError((error) {
+                    Fluttertoast.showToast(
+                      msg: error.toString(),
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.TOP,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.red,
+                      textColor: Colors.white,
+                      fontSize: 16.0,
+                    );
+                  });
+                }
               },
               child: const Text('Submit'),
             ),
