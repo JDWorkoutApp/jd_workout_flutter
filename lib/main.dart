@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:workout_app/home_page.dart';
 import 'package:workout_app/login_page.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+void main() async {
+  await dotenv.load();
   runApp(const MyApp());
 }
 
@@ -20,6 +22,7 @@ class MyAppState extends State<MyApp> {
   Future<bool> _checkLogin() async {
     await Future.delayed(const Duration(seconds: 2));
     return false;
+    // return true;
   }
 
   @override
