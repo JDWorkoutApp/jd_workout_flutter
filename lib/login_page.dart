@@ -61,42 +61,32 @@ class LoginPageState extends State<LoginPage> {
               },
             ),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 if (_formKey.currentState!.validate()) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Processing Data')),
                   );
-                  AuthApi.login(
-                    _emailController.text,
-                    _passwordController.text,
-                  ).then((value) async {
-                    print("success value");
-                    var body = value.body;
-                    Map<String, dynamic> data = jsonDecode(body);
-                    String jwtToken = data["token"];
 
-                    print("jwtToken");
-                    print(jwtToken);
+                  try {
+                    Map<String, dynamic> response = await AuthApi.login(
+                        _emailController.text, _passwordController.text);
                     SharedPreferences prefs = await SharedPreferences.getInstance();
-                    await prefs.setString('jwtToken', jwtToken);
-
-
+                    await prefs.setString('jwtToken', response["jwtToken"]);
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Login successed')),
+                      const SnackBar(content: Text('Login success')),
                     );
 
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => const MyHomePage(title: "from login page")),
+                      MaterialPageRoute(
+                          builder: (context) =>
+                          const MyHomePage(title: "from login page")),
                     );
-
-                  }).catchError((error) {
-                    print("error value");
-                    print(error);
+                  } catch (e) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Login failed')),
                     );
-                  });
+                  }
                 }
               },
               child: const Text('Submit'),
