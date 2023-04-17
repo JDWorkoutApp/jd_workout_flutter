@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:workout_app/api.dart';
+import 'package:workout_app/api/auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -77,13 +77,20 @@ class RegisterPageState extends State<RegisterPage> {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(content: Text('Processing Data')),
                   );
-                  Api.register(
+                  AuthApi.register(
                     _usernameController.text,
                     _passwordController.text,
                     _emailController.text,
                   ).then((value) {
-                    print("api value...");
-                    print(value);
+                    Fluttertoast.showToast(
+                      msg: "Registration successful",
+                      toastLength: Toast.LENGTH_SHORT,
+                      gravity: ToastGravity.TOP,
+                      timeInSecForIosWeb: 1,
+                      backgroundColor: Colors.green,
+                      textColor: Colors.white,
+                      fontSize: 16.0,
+                    );
                   }).catchError((error) {
                     Fluttertoast.showToast(
                       msg: error.toString(),

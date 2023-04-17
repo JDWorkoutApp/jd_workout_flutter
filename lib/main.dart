@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workout_app/home_page.dart';
 import 'package:workout_app/login_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -21,7 +22,13 @@ class MyAppState extends State<MyApp> {
 
   Future<bool> _checkLogin() async {
     await Future.delayed(const Duration(seconds: 2));
-    return false;
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('jwtToken');
+    if (token == null) {
+      return false;
+    }
+
+    return true;
     // return true;
   }
 

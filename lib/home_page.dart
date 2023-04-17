@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:workout_app/counter_home_page.dart';
+import 'package:workout_app/profile_page.dart';
 import 'package:workout_app/search_page.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -15,9 +16,8 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Widget> pages = const <Widget>[
     CounterHomePage(),
     SearchPage(),
-    Text('Profile'),
+    ProfilePage(),
   ];
-
 
   @override
   Widget build(BuildContext context) {
