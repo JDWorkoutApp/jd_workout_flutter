@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:workout_app/counter_home_page.dart';
+import 'package:workout_app/equip_page.dart';
 import 'package:workout_app/profile_page.dart';
 import 'package:workout_app/search_page.dart';
 
@@ -16,6 +17,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Widget> pages = const <Widget>[
     CounterHomePage(),
     SearchPage(),
+    EquipPage(),
     ProfilePage(),
   ];
 
@@ -27,6 +29,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: pages[currentPage],
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         currentIndex: currentPage,
         onTap: (value) {
           setState(() {
@@ -41,6 +44,10 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.search),
             label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.fitness_center),
+            label: 'Equip',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
