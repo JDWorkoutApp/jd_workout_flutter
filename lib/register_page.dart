@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:workout_app/api/auth.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+import 'package:workout_app/utils/toast_helper.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -82,25 +82,9 @@ class RegisterPageState extends State<RegisterPage> {
                     _passwordController.text,
                     _emailController.text,
                   ).then((value) {
-                    Fluttertoast.showToast(
-                      msg: "Registration successful",
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.TOP,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: Colors.green,
-                      textColor: Colors.white,
-                      fontSize: 16.0,
-                    );
+                    ToastHelper.success("Registration successful");
                   }).catchError((error) {
-                    Fluttertoast.showToast(
-                      msg: error.toString(),
-                      toastLength: Toast.LENGTH_SHORT,
-                      gravity: ToastGravity.TOP,
-                      timeInSecForIosWeb: 1,
-                      backgroundColor: Colors.red,
-                      textColor: Colors.white,
-                      fontSize: 16.0,
-                    );
+                    ToastHelper.fail(error.toString());
                   });
                 }
               },
