@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class EquipApi {
@@ -9,15 +7,15 @@ class EquipApi {
     return true;
   }
 
-  static Future<bool> patch(Int32 id, String name, String note) async {
+  static Future<bool> patch(int id, String name, String note) async {
     return true;
   }
 
-  static Future<bool> delete(Int32 id) async {
+  static Future<bool> delete(int id) async {
     return true;
   }
 
-  static Future<Map<String, dynamic>> get(Int16 page) async {
+  static Future<Map<String, dynamic>> get(int page) async {
     return {
       "total": 55,
       "data": [
@@ -50,7 +48,7 @@ class EquipApi {
     };
   }
 
-  static Future<bool> putWeight(Int32 id, Array weights) async {
+  static Future<bool> putWeight(int id, List<int> weights) async {
     return true;
   }
 }
