@@ -21,7 +21,6 @@ class MyAppState extends State<MyApp> {
   bool _isLogin = false;
 
   Future<bool> _checkLogin() async {
-    await Future.delayed(const Duration(seconds: 2));
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('jwtToken');
     if (token == null) {
