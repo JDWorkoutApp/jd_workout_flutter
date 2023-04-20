@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:workout_app/api/equip_api.dart';
+import 'package:workout_app/dialog/equip_form.dart';
 import 'package:workout_app/utils/toast_helper.dart';
 
 class Item {
@@ -129,7 +130,23 @@ class _EquipListState extends State<EquipList> {
                 trailing: IconButton(
                   icon: Icon(Icons.edit),
                   onPressed: () {
-                    // TODO
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return EquipDialog();
+                      },
+                    ).then((result) {
+                      if (result != false) {
+                        EquipApi.patch(item.id, result['name'], result['note'])
+                            .then((apiResult) {
+                          if (apiResult) {
+                            ToastHelper.success("Updated");
+                          } else {
+                            ToastHelper.fail("Failed to update");
+                          }
+                        });
+                      }
+                    });
                   },
                 ),
               ),
