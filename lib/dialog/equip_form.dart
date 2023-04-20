@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:workout_app/api/equip.dart';
+import 'package:workout_app/api/equip_api.dart';
 import 'package:workout_app/utils/toast_helper.dart';
 
 class EquipDialog extends StatefulWidget {
