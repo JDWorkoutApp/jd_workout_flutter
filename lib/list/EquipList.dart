@@ -126,6 +126,12 @@ class _EquipListState extends State<EquipList> {
               child: ListTile(
                 title: Text(item.name),
                 subtitle: Text(item.note),
+                trailing: IconButton(
+                  icon: Icon(Icons.edit),
+                  onPressed: () {
+                    // TODO
+                  },
+                ),
               ),
             );
           }
@@ -133,6 +139,7 @@ class _EquipListState extends State<EquipList> {
       ),
     );
   }
+
 
   Widget _buildProgressIndicator() {
     return Padding(
