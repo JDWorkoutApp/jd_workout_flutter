@@ -24,9 +24,6 @@ class _EquipListState extends State<EquipList> {
 
   @override
   void initState() {
-    print("initState");
-    print("_page:" + _page.toString());
-    print("_isLoading:" + _isLoading.toString());
     super.initState();
 
     _scrollController.addListener(_onScroll);
