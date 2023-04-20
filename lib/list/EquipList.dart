@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:workout_app/api/equip_api.dart';
+import 'package:workout_app/utils/toast_helper.dart';
 
 class Item {
   final int id;
@@ -74,17 +75,43 @@ Widget build(BuildContext context) {
           return _buildProgressIndicator();
         } else {
           final item = _items[index];
-          return Dismissible(
-            key: Key(item.id.toString()),
-            onDismissed: (direction) {
-              setState(() {
-                _items.removeAt(index);
-              });
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text("${item.name} dismissed")),
-              );
-            },
-            background: Container(
+            return Dismissible(
+              key: Key(item.id.toString()),
+              confirmDismiss: (DismissDirection direction) async {
+                return await showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: Text('Delte'),
+                      content: Text('Make sure to delete?'),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(false),
+                          child: Text('cancel'),
+                        ),
+                        TextButton(
+                          onPressed: () => Navigator.of(context).pop(true),
+                          child: Text('confirm'),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              onDismissed: (direction) {
+                EquipApi.delete(item.id).then((value) => {
+                      if (value)
+                        {
+                          setState(() {
+                            _items.removeAt(index);
+                            ToastHelper.success("delete success");
+                          })
+                        }
+                      else
+                        {ToastHelper.fail("delete fail")}
+                    });
+              },
+              background: Container(
               color: Colors.red,
               alignment: Alignment.centerRight,
               child: const Padding(
