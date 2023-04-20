@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:workout_app/api/equip_api.dart';
 
 class Item {
   final String name;
@@ -16,15 +17,20 @@ class EquipList extends StatefulWidget {
 
 class _EquipListState extends State<EquipList> {
   final ScrollController _scrollController = ScrollController();
-  List<Item> _items = List.generate(50, (index) => Item(name: 'Item $index', note: 'Note $index'));
-
-  bool _isLoading = false;
+  List<Item> _items = [];
   int _page = 1;
+  bool _isLoading = false;
 
   @override
   void initState() {
+    print("initState");
+    print("_page:" + _page.toString());
+    print("_isLoading:" + _isLoading.toString());
     super.initState();
+
     _scrollController.addListener(_onScroll);
+
+    _loadMoreItems();
   }
 
   @override
@@ -39,7 +45,7 @@ class _EquipListState extends State<EquipList> {
     }
   }
 
-  void _loadMoreItems() {
+  Future<void> _loadMoreItems() async {
     if (_isLoading) {
       return;
     }
@@ -48,13 +54,14 @@ class _EquipListState extends State<EquipList> {
       _isLoading = true;
     });
 
-    // Simulate a delay while loading more items
-    Future.delayed(Duration(seconds: 2), () {
-      setState(() {
-        _items.addAll(List.generate(50, (index) => Item(name: 'Item ${_items.length + index}', note: 'Note ${_items.length + index}')));
-        _page++;
-        _isLoading = false;
-      });
+    var result = await EquipApi.get(_page);
+
+    List<Item> items = result['data'].map<Item>((item) => Item(name: item['name'], note: item['note'])).toList();
+
+    setState(() {
+      _items.addAll(items);
+      _page++;
+      _isLoading = false;
     });
   }
 
