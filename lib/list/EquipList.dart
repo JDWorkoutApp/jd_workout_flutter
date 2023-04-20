@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:workout_app/api/equip_api.dart';
 
 class Item {
+  final int id;
   final String name;
   final String note;
 
-  Item({required this.name, required this.note});
+  Item({required this.id, required this.name, required this.note});
 }
 
 class EquipList extends StatefulWidget {
@@ -56,7 +57,7 @@ class _EquipListState extends State<EquipList> {
 
     var result = await EquipApi.get(_page);
 
-    List<Item> items = result['data'].map<Item>((item) => Item(name: item['name'], note: item['note'])).toList();
+    List<Item> items = result['data'].map<Item>((item) => Item(id: item['id'], name: item['name'], note: item['note'])).toList();
 
     setState(() {
       _items.addAll(items);
@@ -65,26 +66,45 @@ class _EquipListState extends State<EquipList> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView.builder(
-        controller: _scrollController,
-        itemCount: _items.length + 1,
-        itemBuilder: (context, index) {
-          if (index == _items.length) {
-            return _buildProgressIndicator();
-          } else {
-            final item = _items[index];
-            return ListTile(
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    body: ListView.builder(
+      controller: _scrollController,
+      itemCount: _items.length + 1,
+      itemBuilder: (context, index) {
+        if (index == _items.length) {
+          return _buildProgressIndicator();
+        } else {
+          final item = _items[index];
+          return Dismissible(
+            key: Key(item.id.toString()),
+            onDismissed: (direction) {
+              setState(() {
+                _items.removeAt(index);
+              });
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(content: Text("${item.name} dismissed")),
+              );
+            },
+            background: Container(
+              color: Colors.red,
+              alignment: Alignment.centerRight,
+              child: const Padding(
+                padding: EdgeInsets.only(right: 16),
+                child: Icon(Icons.delete, color: Colors.white),
+              ),
+            ),
+            child: ListTile(
               title: Text(item.name),
               subtitle: Text(item.note),
-            );
-          }
-        },
-      ),
-    );
-  }
+            ),
+          );
+        }
+      },
+    ),
+  );
+}
 
   Widget _buildProgressIndicator() {
     return Padding(
