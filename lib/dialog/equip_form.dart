@@ -20,7 +20,6 @@ class _EquipDialogState extends State<EquipDialog> {
 
   @override
   Widget build(BuildContext context) {
-    bool result;
     return AlertDialog(
       title: Text("Add Equipm"),
       content: Column(
@@ -38,20 +37,17 @@ class _EquipDialogState extends State<EquipDialog> {
       ),
       actions: [
         TextButton(
-          onPressed: () async {
-            Navigator.pop(context, null);
+          onPressed: () {
+            Navigator.pop(context, false);
           },
           child: Text("Cancel"),
         ),
         ElevatedButton(
           onPressed: () async {
-            result = await EquipApi.store(_nameController.text, _noteController.text);
-            if (result) {
-              ToastHelper.success("Success");
-              Navigator.pop(context, null);
-            } else {
-              ToastHelper.fail("error");
-            }
+            Navigator.pop(context, {
+              'name': _nameController.text,
+              'note': _noteController.text,
+            });
           },
           child: Text("Save"),
         ),

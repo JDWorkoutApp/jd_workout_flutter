@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:workout_app/api/equip_api.dart';
 import 'package:workout_app/dialog/equip_form.dart';
 import 'package:workout_app/list/EquipList.dart';
+import 'package:workout_app/utils/toast_helper.dart';
 
 class EquipPage extends StatefulWidget {
   const EquipPage({Key? key});
@@ -21,7 +23,17 @@ class _EquipPageState extends State<EquipPage> {
             builder: (BuildContext context) {
               return EquipDialog();
             },
-          );
+          ).then((result) {
+            if (result != false) {
+              EquipApi.store(result['name'], result['note']).then((apiResult) {
+                if (apiResult) {
+                  ToastHelper.success("Added equip");
+                } else {
+                  ToastHelper.fail("Failed to add equip");
+                }
+              });
+            }
+          });
         },
         child: Icon(Icons.add),
       ),
