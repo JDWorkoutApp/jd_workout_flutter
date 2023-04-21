@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:workout_app/api/equip_api.dart';
-import 'package:workout_app/dialog/equip_form.dart';
 import 'package:workout_app/list/equip_list.dart';
 import 'package:workout_app/utils/toast_helper.dart';
+import 'dialog/equip_dialog.dart';
 
 class EquipPage extends StatefulWidget {
   const EquipPage({Key? key});
