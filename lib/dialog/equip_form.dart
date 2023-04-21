@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:workout_app/api/equip_api.dart';
-import 'package:workout_app/utils/toast_helper.dart';
 
 class EquipDialog extends StatefulWidget {
+  var name;
+  var note;
+
+  EquipDialog({this.name = '', this.note = ''});
   @override
   _EquipDialogState createState() => _EquipDialogState();
 }
@@ -10,6 +12,13 @@ class EquipDialog extends StatefulWidget {
 class _EquipDialogState extends State<EquipDialog> {
   final _nameController = TextEditingController();
   final _noteController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _nameController.text = widget.name;
+    _noteController.text = widget.note;
+  }
 
   @override
   void dispose() {
@@ -21,7 +30,7 @@ class _EquipDialogState extends State<EquipDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text("Add Equipm"),
+      title: Text("Equipment"),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

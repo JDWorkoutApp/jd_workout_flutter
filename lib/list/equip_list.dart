@@ -133,7 +133,7 @@ class _EquipListState extends State<EquipList> {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return EquipDialog();
+                        return EquipDialog(name: item.name, note: item.note);
                       },
                     ).then((result) {
                       if (result != false) {
