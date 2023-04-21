@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:workout_app/api/equip_api.dart';
 import 'package:workout_app/dialog/equip_form.dart';
+import 'package:workout_app/dialog/equip_weights_dialog.dart';
 import 'package:workout_app/utils/toast_helper.dart';
 
 class Item {
@@ -127,7 +128,19 @@ class _EquipListState extends State<EquipList> {
               child: ListTile(
                 title: Text(item.name),
                 subtitle: Text(item.note),
-                trailing: IconButton(
+                trailing: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    IconButton(
+                      icon: Icon(Icons.add),
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) => EquipWeightDialog()
+                        );
+                      },
+                    ),
+                    IconButton(
                   icon: Icon(Icons.edit),
                   onPressed: () {
                     showDialog(
