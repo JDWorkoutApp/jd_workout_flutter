@@ -160,7 +160,8 @@ class _EquipListState extends State<EquipList> {
                         });
                       }
                     });
-                  },
+                  })
+                ],
                 ),
               ),
             );
