@@ -137,7 +137,18 @@ class _EquipListState extends State<EquipList> {
                         showDialog(
                             context: context,
                             builder: (BuildContext context) => EquipWeightDialog()
-                        );
+                        ).then((result) {
+                          if (result != false) {
+                            EquipApi.putWeight(item.id, result)
+                                .then((apiResult) {
+                              if (apiResult) {
+                                ToastHelper.success("Added");
+                              } else {
+                                ToastHelper.fail("Failed to add");
+                              }
+                            });
+                          }
+                        });
                       },
                     ),
                     IconButton(

@@ -50,7 +50,7 @@ class _EquipWeightDialogState extends State<EquipWeightDialog> {
       actions: [
         TextButton(
           onPressed: () {
-            Navigator.pop(context);
+            Navigator.pop(context, false);
           },
           child: const Text('Cancel'),
         ),
