@@ -8,8 +8,9 @@ class Item {
   final int id;
   final String name;
   final String note;
+  final List<double> weights;
 
-  Item({required this.id, required this.name, required this.note});
+  Item({required this.id, required this.name, required this.note, required this.weights});
 }
 
 class EquipList extends StatefulWidget {
@@ -60,7 +61,7 @@ class _EquipListState extends State<EquipList> {
 
     List<Item> items = result['data']
         .map<Item>((item) =>
-            Item(id: item['id'], name: item['name'], note: item['note']))
+            Item(id: item['id'], name: item['name'], note: item['note'], weights: item['weights'].cast<double>().toList()))
         .toList();
 
     setState(() {
@@ -136,7 +137,7 @@ class _EquipListState extends State<EquipList> {
                       onPressed: () {
                         showDialog(
                             context: context,
-                            builder: (BuildContext context) => EquipWeightDialog()
+                            builder: (BuildContext context) => EquipWeightDialog(weights: item.weights)
                         ).then((result) {
                           if (result != false) {
                             EquipApi.putWeight(item.id, result)

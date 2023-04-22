@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 class EquipWeightDialog extends StatefulWidget {
-  const EquipWeightDialog({Key? key}) : super(key: key);
+  var weights;
+
+  EquipWeightDialog({this.weights = ''});
 
   @override
   _EquipWeightDialogState createState() => _EquipWeightDialogState();
 }
 
 class _EquipWeightDialogState extends State<EquipWeightDialog> {
-  final _EquipWeights = <double>[];
+  List<double> _EquipWeights = <double>[];
+
+    @override
+  void initState() {
+    super.initState();
+    _EquipWeights = widget.weights;
+  }
 
   @override
   Widget build(BuildContext context) {
