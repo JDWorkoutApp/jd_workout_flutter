@@ -98,7 +98,7 @@ class EquipApi {
     };
   }
 
-  static Future<bool> putWeight(int id, List<int> weights) async {
+  static Future<bool> putWeight(int id, List<double> weights) async {
     return true;
   }
 }
