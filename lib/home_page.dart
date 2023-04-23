@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:workout_app/counter_home_page.dart';
 import 'package:workout_app/equip_page.dart';
 import 'package:workout_app/profile_page.dart';
+import 'package:workout_app/exercise_page.dart';
 import 'package:workout_app/search_page.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -15,7 +16,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int currentPage = 0;
   List<Widget> pages = const <Widget>[
-    CounterHomePage(),
+    ExercisePage(),
     SearchPage(),
     EquipPage(),
     ProfilePage(),
