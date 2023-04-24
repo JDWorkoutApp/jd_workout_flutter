@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
   onPrimary: Colors.black87,
@@ -42,20 +43,19 @@ class _ExercisePageState extends State<ExercisePage> {
               padding: EdgeInsets.all(20.0),
               child: Column(
                 children: <Widget>[
-                  // 選擇器材的下拉選單
                   DropdownButton<String>(
-                    items: [
+                    items: const [
                       DropdownMenuItem<String>(
-                        child: Text('選擇器材'),
                         value: 'none',
+                        child: Text('選擇器材'),
                       ),
                       DropdownMenuItem<String>(
-                        child: Text('啞鈴'),
                         value: 'dumbbell',
+                        child: Text('啞鈴'),
                       ),
                       DropdownMenuItem<String>(
-                        child: Text('跑步機'),
                         value: 'treadmill',
+                        child: Text('跑步機'),
                       ),
                     ],
                     onChanged: (value) {
@@ -70,6 +70,10 @@ class _ExercisePageState extends State<ExercisePage> {
                     children: <Widget>[
                       Expanded(
                         child: TextField(
+                          keyboardType: TextInputType.numberWithOptions(decimal: true), // Show decimal keyboard on mobile devices
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')), // Allow only numbers and dots up to 2 decimal places
+                          ],
                           decoration: InputDecoration(
                             labelText: '輸入重量',
                           ),
@@ -77,6 +81,10 @@ class _ExercisePageState extends State<ExercisePage> {
                       ),
                       Expanded(
                         child: TextField(
+                          keyboardType: TextInputType.numberWithOptions(decimal: true),
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}')), // Allow only numbers and dots up to 2 decimal places
+                          ],// Show decimal keyboard on mobile devices
                           decoration: InputDecoration(
                             labelText: '輸入 reps',
                           ),
@@ -84,7 +92,7 @@ class _ExercisePageState extends State<ExercisePage> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 20.0),
+                  const SizedBox(height: 20.0),
                   // 送出按鈕
                   ElevatedButton(
                     style: raisedButtonStyle,
@@ -92,7 +100,7 @@ class _ExercisePageState extends State<ExercisePage> {
                       // 儲存運動紀錄到資料庫
                       // ...
                     },
-                    child: Text('送出'),
+                    child: const Text('送出'),
                   ),
                 ],
               ),
@@ -112,7 +120,7 @@ class _ExercisePageState extends State<ExercisePage> {
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
+                        children: const <Widget>[
                           Text('運動日期：2022-01-01'),
                           SizedBox(height: 4.0),
                           Text('器材：測試'),
