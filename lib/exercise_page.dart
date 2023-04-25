@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:workout_app/dialog/choose_equip_dialog.dart';
 
 final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
   onPrimary: Colors.black87,
@@ -43,26 +44,23 @@ class _ExercisePageState extends State<ExercisePage> {
               padding: EdgeInsets.all(20.0),
               child: Column(
                 children: <Widget>[
-                  DropdownButton<String>(
-                    items: const [
-                      DropdownMenuItem<String>(
-                        value: 'none',
-                        child: Text('選擇器材'),
-                      ),
-                      DropdownMenuItem<String>(
-                        value: 'dumbbell',
-                        child: Text('啞鈴'),
-                      ),
-                      DropdownMenuItem<String>(
-                        value: 'treadmill',
-                        child: Text('跑步機'),
-                      ),
-                    ],
-                    onChanged: (value) {
-                      // 改變選擇器材的值
-                      // ...
+                  RichText(
+                    text: const TextSpan(text: 'Hello'),
+                    selectionRegistrar: SelectionContainer.maybeOf(context),
+                    selectionColor: const Color(0xAF6694e8),
+                  ),
+                  ElevatedButton(
+                    style: raisedButtonStyle,
+                    onPressed: () {
+                      print("haha");
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return ChooseEquipDialog();
+                        },
+                      );
                     },
-                    value: 'none',
+                    child: Text('選擇器材'),
                   ),
                   // 輸入重量和 reps 的欄位
                   Row(
