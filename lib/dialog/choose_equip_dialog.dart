@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:workout_app/models/equip_model.dart';
 
 class ChooseEquipDialog extends StatefulWidget {
   ChooseEquipDialog({Key? key}) : super(key: key);
@@ -8,7 +9,7 @@ class ChooseEquipDialog extends StatefulWidget {
 
 class _ChooseEquipDialogState extends State<ChooseEquipDialog> {
   final ScrollController _scrollController = ScrollController();
-  List<dynamic> equipList = [];
+  List<EquipModel> equipList = [];
 
   bool _isLoading = false;
 
@@ -39,76 +40,76 @@ class _ChooseEquipDialogState extends State<ChooseEquipDialog> {
       _isLoading = false;
 
       equipList.addAll([
-        {
-          'id': 1,
-          'name': 'Dumbbell',
-          'note': 'Dumbbell note',
-        },
-        {
-          'id': 2,
-          'name': 'Barbell',
-          'note': 'Barbell note',
-        },
-        {
-          'id': 3,
-          'name': 'Kettlebell',
-          'note': 'Kettlebell note',
-        },
-        {
-          'id': 1,
-          'name': 'Dumbbell',
-          'note': 'Dumbbell note',
-        },
-        {
-          'id': 2,
-          'name': 'Barbell',
-          'note': 'Barbell note',
-        },
-        {
-          'id': 3,
-          'name': 'Kettlebell',
-          'note': 'Kettlebell note',
-        },
-        {
-          'id': 1,
-          'name': 'Dumbbell',
-          'note': 'Dumbbell note',
-        },
-        {
-          'id': 2,
-          'name': 'Barbell',
-          'note': 'Barbell note',
-        },
-        {
-          'id': 3,
-          'name': 'Kettlebell',
-          'note': 'Kettlebell note',
-        },
-        {
-          'id': 1,
-          'name': 'Dumbbell',
-          'note': 'Dumbbell note',
-        },
-        {
-          'id': 2,
-          'name': 'Barbell',
-          'note': 'Barbell note',
-        },
-        {
-          'id': 3,
-          'name': 'Kettlebell',
-          'note': 'Kettlebell note',
-        },
-        {
-          'id': 1,
-          'name': 'Dumbbell',
-          'note': 'Dumbbell note',
-        },
-        {
-          'id': 2,
-          'name': 'Barbell',
-          'note': 'Barbell note',
-        },
+        EquipModel(
+          id: 1,
+          name: 'Dumbbell',
+          note: 'Dumbbell note',
+        ),
+        EquipModel(
+          id: 2,
+          name: 'Barbell',
+          note: 'Barbell note',
+        ),
+        EquipModel(
+          id: 3,
+          name: 'Kettlebell',
+          note: 'Kettlebell note',
+        ),
+        EquipModel(
+          id: 1,
+          name: 'Dumbbell',
+          note: 'Dumbbell note',
+        ),
+        EquipModel(
+          id: 2,
+          name: 'Barbell',
+          note: 'Barbell note',
+        ),
+        EquipModel(
+          id: 3,
+          name: 'Kettlebell',
+          note: 'Kettlebell note',
+        ),
+        EquipModel(
+          id: 1,
+          name: 'Dumbbell',
+          note: 'Dumbbell note',
+        ),
+        EquipModel(
+          id: 2,
+          name: 'Barbell',
+          note: 'Barbell note',
+        ),
+        EquipModel(
+          id: 3,
+          name: 'Kettlebell',
+          note: 'Kettlebell note',
+        ),
+        EquipModel(
+          id: 1,
+          name: 'Dumbbell',
+          note: 'Dumbbell note',
+        ),
+        EquipModel(
+          id: 2,
+          name: 'Barbell',
+          note: 'Barbell note',
+        ),
+        EquipModel(
+          id: 3,
+          name: 'Kettlebell',
+          note: 'Kettlebell note',
+        ),
+        EquipModel(
+          id: 1,
+          name: 'Dumbbell',
+          note: 'Dumbbell note',
+        ),
+        EquipModel(
+          id: 2,
+          name: 'Barbell',
+          note: 'Barbell note',
+        ),
       ]);
     });
   }
@@ -126,11 +127,11 @@ class _ChooseEquipDialogState extends State<ChooseEquipDialog> {
           itemBuilder: (BuildContext context, int index) {
             return InkWell(
               onTap: () {
-                Navigator.of(context).pop(equipList[index]['id']);
+                Navigator.of(context).pop(equipList[index]);
               },
               child: ListTile(
-                title: Text(equipList[index]['name']),
-                subtitle: Text(equipList[index]['note']),
+                title: Text(equipList[index].name),
+                subtitle: Text(equipList[index].note),
               ),
             );
           },
