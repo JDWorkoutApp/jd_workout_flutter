@@ -10,10 +10,10 @@ class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
 
   @override
-  LoginPageState createState() => LoginPageState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class LoginPageState extends State<LoginPage> {
+class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -28,10 +28,15 @@ class LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Login'),
-      ),
-      body: Form(
+      resizeToAvoidBottomInset: false,
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("images/login-background.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Form(
         key: _formKey,
         child: Column(
           children: [
@@ -105,6 +110,7 @@ class LoginPageState extends State<LoginPage> {
             ),
           ],
         ),
+      ),
       ),
     );
   }
