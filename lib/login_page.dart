@@ -37,11 +37,83 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
         child: Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            TextFormField(
-              controller: _emailController,
+          key: _formKey,
+          child: Column(
+            children: [
+              Expanded(
+                  flex: 3,
+                  child: LoginForm(
+                      emailController: _emailController,
+                      passwordController: _passwordController
+                  )),
+              ElevatedButton(
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    final scaffoldMessenger = ScaffoldMessenger.of(context);
+                    final navigator = Navigator.of(context);
+
+                    scaffoldMessenger.showSnackBar(
+                      const SnackBar(content: Text('Processing Data')),
+                    );
+
+                    try {
+                      Map<String, dynamic> response = await AuthApi.login(
+                          _emailController.text, _passwordController.text);
+                      SharedPreferences prefs =
+                          await SharedPreferences.getInstance();
+                      await prefs.setString('jwtToken', response["jwtToken"]);
+                      scaffoldMessenger.showSnackBar(
+                        const SnackBar(content: Text('Login success')),
+                      );
+
+                      navigator.pushReplacement(
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                const MyHomePage(title: "from login page")),
+                      );
+                    } catch (e) {
+                      scaffoldMessenger.showSnackBar(
+                        const SnackBar(content: Text('Login failed')),
+                      );
+                    }
+                  }
+                },
+                child: const Text('Submit'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const RegisterPage()),
+                  );
+                },
+                child: const Text('Register'),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class LoginForm extends StatelessWidget {
+  final TextEditingController emailController;
+  final TextEditingController passwordController;
+
+  const LoginForm({
+    required this.emailController,
+    required this.passwordController,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Expanded(
+          child: TextFormField(
+              controller: emailController,
               decoration: const InputDecoration(
                 labelText: 'Email',
               ),
@@ -52,66 +124,24 @@ class _LoginPageState extends State<LoginPage> {
 
                 return null;
               },
-            ),
-            TextFormField(
-              controller: _passwordController,
-              decoration: const InputDecoration(
-                labelText: 'Password',
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter password';
-                }
-                return null;
-              },
-            ),
-            ElevatedButton(
-              onPressed: () async {
-                if (_formKey.currentState!.validate()) {
-                  final scaffoldMessenger = ScaffoldMessenger.of(context);
-                  final navigator = Navigator.of(context);
-
-                  scaffoldMessenger.showSnackBar(
-                    const SnackBar(content: Text('Processing Data')),
-                  );
-
-                  try {
-                    Map<String, dynamic> response = await AuthApi.login(
-                        _emailController.text, _passwordController.text);
-                    SharedPreferences prefs =
-                      await SharedPreferences.getInstance();
-                    await prefs.setString('jwtToken', response["jwtToken"]);
-                    scaffoldMessenger.showSnackBar(
-                      const SnackBar(content: Text('Login success')),
-                    );
-
-                    navigator.pushReplacement(
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              const MyHomePage(title: "from login page")),
-                    );
-                  } catch (e) {
-                    scaffoldMessenger.showSnackBar(
-                      const SnackBar(content: Text('Login failed')),
-                    );
-                  }
-                }
-              },
-              child: const Text('Submit'),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const RegisterPage()),
-                );
-              },
-              child: const Text('Register'),
-            ),
-          ],
+          ),
         ),
-      ),
-      ),
+        Expanded(
+          child: TextFormField(
+            controller: passwordController,
+            decoration: const InputDecoration(
+              labelText: 'Password',
+            ),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Please enter password';
+              }
+              return null;
+            },
+          ),
+        )
+      ],
     );
   }
+
 }
