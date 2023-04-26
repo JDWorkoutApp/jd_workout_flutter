@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:workout_app/dialog/choose_equip_dialog.dart';
+import 'package:workout_app/list/exercise_list.dart';
+import 'models/equip_model.dart';
 
 final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
   onPrimary: Colors.black87,
@@ -32,12 +34,17 @@ class _ExercisePageState extends State<ExercisePage> {
   // 宣告一些變數和資料庫存取相關的屬性
   // ...
 
+  EquipModel selectedEquip = EquipModel(
+      id: 0,
+      name: '-',
+      note: '-'
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: <Widget>[
-          // 上半部份固定的表格
           Container(
             height: 200.0,
             child: Padding(
@@ -109,33 +116,9 @@ class _ExercisePageState extends State<ExercisePage> {
           ),
           // 下半部份的運動紀錄分頁資料
           Expanded(
-            child: ListView.builder(
-              itemBuilder: (BuildContext context, int index) {
-                // 取得資料庫裡的運動紀錄
-                // ...
-
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: const <Widget>[
-                          Text('運動日期：2022-01-01'),
-                          SizedBox(height: 4.0),
-                          Text('器材：測試'),
-                          SizedBox(height: 4.0),
-                          Text('重量：20'),
-                          SizedBox(height: 4.0),
-                          Text('Reps：5'),
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
+            child: Scaffold(
+              body: ExerciseList(),
+            )
           ),
         ],
       ),
