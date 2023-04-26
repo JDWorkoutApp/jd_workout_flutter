@@ -2,16 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:workout_app/api/equip_api.dart';
 import 'package:workout_app/dialog/equip_dialog.dart';
 import 'package:workout_app/dialog/equip_weights_dialog.dart';
+import 'package:workout_app/models/equip_model.dart';
 import 'package:workout_app/utils/toast_helper.dart';
-
-class Item {
-  final int id;
-  final String name;
-  final String note;
-  final List<double> weights;
-
-  Item({required this.id, required this.name, required this.note, required this.weights});
-}
 
 class EquipList extends StatefulWidget {
   const EquipList({Key? key}) : super(key: key);
@@ -22,7 +14,7 @@ class EquipList extends StatefulWidget {
 
 class _EquipListState extends State<EquipList> {
   final ScrollController _scrollController = ScrollController();
-  List<Item> _items = [];
+  List<EquipModel> _items = [];
   int _page = 1;
   bool _isLoading = false;
 
@@ -59,9 +51,13 @@ class _EquipListState extends State<EquipList> {
 
     var result = await EquipApi.get(_page);
 
-    List<Item> items = result['data']
-        .map<Item>((item) =>
-            Item(id: item['id'], name: item['name'], note: item['note'], weights: item['weights'].cast<double>().toList()))
+    List<EquipModel> items = result['data']
+        .map<EquipModel>((item) =>
+            EquipModel(
+                id: item['id'],
+                name: item['name'],
+                note: item['note'],
+                weights: item['weights'].cast<double>().toList())    )
         .toList();
 
     setState(() {
