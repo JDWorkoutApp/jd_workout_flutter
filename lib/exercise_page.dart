@@ -45,20 +45,23 @@ class _ExercisePageState extends State<ExercisePage> {
               child: Column(
                 children: <Widget>[
                   RichText(
-                    text: const TextSpan(text: 'Hello'),
+                    text: TextSpan(text: selectedEquip.name),
                     selectionRegistrar: SelectionContainer.maybeOf(context),
                     selectionColor: const Color(0xAF6694e8),
                   ),
                   ElevatedButton(
                     style: raisedButtonStyle,
                     onPressed: () {
-                      print("haha");
                       showDialog(
                         context: context,
                         builder: (BuildContext context) {
                           return ChooseEquipDialog();
                         },
-                      );
+                      ).then((result) {
+                        setState(() {
+                            selectedEquip = result as EquipModel;
+                        });
+                      });
                     },
                     child: Text('選擇器材'),
                   ),
