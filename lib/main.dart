@@ -64,7 +64,6 @@ class MyAppState extends State<MyApp> {
           fontFamily: 'RobotoMono',
           brightness: Brightness.dark,
       ),
-
     );
   }
 }
