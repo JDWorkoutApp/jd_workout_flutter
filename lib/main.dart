@@ -44,22 +44,27 @@ class MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    Widget homeWidget;
+
     if (_needCheckLogin) {
-      return const MaterialApp(
-        home: Scaffold(
-          body: Center(
-            child: CircularProgressIndicator(),
-          ),
+      homeWidget = const Scaffold(
+        body: Center(
+          child: CircularProgressIndicator(),
         ),
       );
+    } else if (_isLogin) {
+      homeWidget = MyHomePage(title: 'Flutter Demo Home Page');
+    } else {
+      homeWidget = LoginPage();
     }
-    if (_isLogin) {
-      return const MaterialApp(
-        home: MyHomePage(title: 'Flutter Demo Home Page'),
-      );
-    }
-    return const MaterialApp(
-      home: LoginPage()
+
+    return MaterialApp(
+      home: homeWidget,
+      theme: ThemeData(
+          fontFamily: 'RobotoMono',
+          brightness: Brightness.dark,
+      ),
+
     );
   }
 }
