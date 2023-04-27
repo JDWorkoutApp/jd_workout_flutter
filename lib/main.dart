@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workout_app/home_page.dart';
-import 'package:workout_app/login_page.dart';
+import 'package:workout_app/pages/login_page/login_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 void main() async {
@@ -63,6 +63,7 @@ class MyAppState extends State<MyApp> {
       theme: ThemeData(
           fontFamily: 'RobotoMono',
           brightness: Brightness.dark,
+          secondaryHeaderColor: const Color(0xFFFFD700),
       ),
     );
   }
