@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:social_login_buttons/social_login_buttons.dart';
+import 'package:workout_app/oauth/google_auth.dart';
 import 'package:workout_app/pages/login_page/component/button_group.dart';
 import 'package:workout_app/pages/login_page/component/login_form.dart';
 import 'package:workout_app/pages/login_page/component/logo_text.dart';
@@ -42,6 +44,40 @@ class _LoginPageState extends State<LoginPage> {
                   child: Align(
                     alignment: Alignment.center,
                     child: LogoText(),
+                  )),
+              Expanded(
+                  flex: 2,
+                  child: Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 16.0),
+                          constraints: BoxConstraints(
+                              maxWidth:
+                                  MediaQuery.of(context).size.width * 0.8),
+                          child: SocialLoginButton(
+                            text: 'SIGN IN WITH GOOGLE',
+                            buttonType: SocialLoginButtonType.google,
+                            onPressed: () {
+                              GoogleAuth.signInWithGoogle().then((value) {
+                                print("after sync google success");
+                                print(value);
+                              }).catchError((error) {
+                                print("after sync google error");
+                                print(error);
+                              });
+                            },
+                            mode: SocialLoginButtonMode.single,
+                          )))),
+              Expanded(
+                  flex: 2,
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      'OR',
+                      style: TextStyle(
+                        color: Theme.of(context).secondaryHeaderColor,
+                      ),
+                    ),
                   )),
               Expanded(
                   flex: 4,
