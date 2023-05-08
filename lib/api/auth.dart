@@ -18,6 +18,10 @@ class AuthApi {
 
     var body = response.body;
     Map<String, dynamic> data = jsonDecode(body);
+    if (response.statusCode != 200) {
+      throw Exception(data["message"]);
+    }
+
     String jwtToken = data["token"];
 
     return {"jwtToken": jwtToken};
