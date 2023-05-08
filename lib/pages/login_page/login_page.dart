@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:social_login_buttons/social_login_buttons.dart';
 import 'package:workout_app/oauth/google_auth.dart';
@@ -58,12 +59,11 @@ class _LoginPageState extends State<LoginPage> {
                             text: 'SIGN IN WITH GOOGLE',
                             buttonType: SocialLoginButtonType.google,
                             onPressed: () {
-                              GoogleAuth.signInWithGoogle().then((value) {
+                              GoogleAuth.signInWithGoogle().then((UserCredential value) {
+                                final String? googleAccessToken = value.credential?.accessToken;
                                 print("after sync google success");
-                                print(value);
+                                print(googleAccessToken);
                               }).catchError((error) {
-                                print("after sync google error");
-                                print(error);
                               });
                             },
                             mode: SocialLoginButtonMode.single,
