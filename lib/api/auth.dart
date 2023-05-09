@@ -8,6 +8,17 @@ import '../constants/api_constants.dart';
 class AuthApi {
   static final String? baseAPIUrl = dotenv.env['BASE_API_URL'];
 
+  static GooglLogin(String token) async {
+    final Uri uri = Uri.parse('${APIConstants.apiPath}/login/google?token=$token');
+    final response = await http.get(uri);
+
+    print('statusCode');
+    print(response.statusCode);
+    var body = response.body;
+    print('body');
+    print(body);
+  }
+
   static Future<Map<String, dynamic>> login(String email, String password) async {
     final Uri uri = Uri.parse('${APIConstants.apiPath}/login');
 
