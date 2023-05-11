@@ -3,7 +3,6 @@ import 'package:workout_app/counter_home_page.dart';
 import 'package:workout_app/equip_page.dart';
 import 'package:workout_app/profile_page.dart';
 import 'package:workout_app/exercise_page.dart';
-import 'package:workout_app/search_page.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -17,7 +16,6 @@ class _MyHomePageState extends State<MyHomePage> {
   int currentPage = 0;
   List<Widget> pages = const <Widget>[
     ExercisePage(),
-    SearchPage(),
     EquipPage(),
     ProfilePage(),
   ];
@@ -41,10 +39,6 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.search),
-            label: 'Search',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.fitness_center),
