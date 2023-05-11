@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:workout_app/api/auth.dart';
-import 'package:workout_app/utils/toast_helper.dart';
+import 'package:workout_app/pages/register_page//component/button_group.dart';
+import 'package:workout_app/pages/register_page/component/register_form.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -26,71 +26,53 @@ class RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Register'),
-      ),
-      body: Form(
-        key: _formKey,
-        child: Column(
-          children: [
-            TextFormField(
-              controller: _usernameController,
-              decoration: const InputDecoration(
-                labelText: 'Username',
+      resizeToAvoidBottomInset: false,
+      body: Container(
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("images/login-background.png"),
+            fit: BoxFit.cover,
+          ),
+        ),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            children: [
+              Expanded(
+                flex: 7,
+                child: Row(),
               ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter username';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _passwordController,
-              decoration: const InputDecoration(
-                labelText: 'Password',
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter password';
-                }
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _emailController,
-              decoration: const InputDecoration(
-                labelText: 'Email',
-              ),
-              validator: (value) {
-                if (value == null || value.isEmpty) {
-                  return 'Please enter email';
-                }
-                return null;
-              },
-            ),
-            ElevatedButton(
-              onPressed: () {
-                print("register button pressed...");
-
-                if (_formKey.currentState!.validate()) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Processing Data')),
-                  );
-                  AuthApi.register(
-                    _usernameController.text,
-                    _passwordController.text,
-                    _emailController.text,
-                  ).then((value) {
-                    ToastHelper.success("Registration successful");
-                  }).catchError((error) {
-                    ToastHelper.fail(error.toString());
-                  });
-                }
-              },
-              child: const Text('Submit'),
-            ),
-          ],
+              Expanded(
+                  flex: 6,
+                  child: Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0),
+                        constraints: BoxConstraints(
+                            maxWidth: MediaQuery.of(context).size.width * 0.8),
+                        child: RegisterForm(
+                            userNameController: _usernameController,
+                            emailController: _emailController,
+                            passwordController: _passwordController),
+                      ))),
+              Expanded(
+                  flex: 2,
+                  child: Align(
+                      alignment: Alignment.center,
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 16.0),
+                        constraints: BoxConstraints(
+                            maxWidth: MediaQuery.of(context).size.width * 0.8),
+                        child: ButtonGroup(
+                          formKey: _formKey,
+                          usernameController: _usernameController,
+                          emailController: _emailController,
+                          passwordController: _passwordController,
+                        ),
+                      ))),
+              Expanded(flex: 4, child: Row())
+            ],
+          ),
         ),
       ),
     );
