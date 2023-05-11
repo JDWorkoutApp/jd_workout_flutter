@@ -28,6 +28,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: pages[currentPage],
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Theme.of(context).primaryColorLight,
         type: BottomNavigationBarType.fixed,
         currentIndex: currentPage,
         onTap: (value) {
