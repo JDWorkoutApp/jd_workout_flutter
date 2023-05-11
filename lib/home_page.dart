@@ -28,6 +28,8 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: pages[currentPage],
       bottomNavigationBar: BottomNavigationBar(
+        unselectedItemColor: Theme.of(context).primaryColor,
+        selectedItemColor: Theme.of(context).focusColor,
         backgroundColor: Theme.of(context).primaryColorLight,
         type: BottomNavigationBarType.fixed,
         currentIndex: currentPage,
