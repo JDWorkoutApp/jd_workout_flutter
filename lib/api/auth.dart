@@ -9,8 +9,10 @@ class AuthApi {
   static final String? baseAPIUrl = dotenv.env['BASE_API_URL'];
 
   static GooglLogin(String token) async {
-    final Uri uri = Uri.parse('${APIConstants.apiPath}/login/google?token=$token');
-    final response = await http.get(uri);
+    final Uri uri = Uri.parse('${APIConstants.apiPath}/login/google/access-token');
+    final response = await http.post(uri, body: {
+      'token': token,
+    });
 
     print('statusCode');
     print(response.statusCode);
