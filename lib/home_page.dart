@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:workout_app/counter_home_page.dart';
 import 'package:workout_app/equip_page.dart';
 import 'package:workout_app/profile_page.dart';
 import 'package:workout_app/exercise_page.dart';
@@ -23,9 +22,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
       body: pages[currentPage],
       bottomNavigationBar: BottomNavigationBar(
         unselectedItemColor: Theme.of(context).primaryColor,
