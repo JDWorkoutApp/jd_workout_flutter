@@ -60,7 +60,7 @@ class MyAppState extends State<MyApp> {
         ),
       );
     } else if (_isLogin) {
-      homeWidget = MyHomePage(title: 'Flutter Demo Home Page');
+      homeWidget = HomePage(title: 'Flutter Demo Home Page');
     } else {
       homeWidget = LoginPage();
     }

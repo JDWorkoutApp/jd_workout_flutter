@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                                   final navigator = Navigator.of(context);
                                   navigator.pushReplacement(
                                     MaterialPageRoute(
-                                        builder: (context) => const MyHomePage(
+                                        builder: (context) => const HomePage(
                                             title: "from login page")),
                                   );
                                 }).catchError((error) {

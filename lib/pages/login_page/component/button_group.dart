@@ -38,7 +38,7 @@ class ButtonGroup extends StatelessWidget {
 
         navigator.pushReplacement(
           MaterialPageRoute(
-              builder: (context) => const MyHomePage(title: "from login page")),
+              builder: (context) => const HomePage(title: "from login page")),
         );
       } catch (e) {
         ToastHelper.fail(e.toString());
