@@ -70,7 +70,7 @@ class _LoginPageState extends State<LoginPage> {
 
                                   ToastHelper.success("Login success");
 
-                                    final navigator = Navigator.of(context);
+                                  final navigator = Navigator.of(context);
                                   navigator.pushReplacement(
                                     MaterialPageRoute(
                                         builder: (context) => const MyHomePage(
