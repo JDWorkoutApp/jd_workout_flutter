@@ -8,6 +8,7 @@ import 'package:workout_app/pages/login_page/component/button_group.dart';
 import 'package:workout_app/pages/login_page/component/login_form.dart';
 import 'package:workout_app/pages/login_page/component/logo_text.dart';
 import 'package:workout_app/utils/auth_helper.dart';
+import 'package:workout_app/utils/loading_helper.dart';
 import 'package:workout_app/utils/toast_helper.dart';
 
 class LoginPage extends StatefulWidget {
@@ -63,6 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                             text: 'SIGN IN WITH GOOGLE',
                             buttonType: SocialLoginButtonType.google,
                             onPressed: () {
+                              LoadingHelper(context).startLoading();
                               GoogleAuth.signInWithGoogle().then((UserCredential value) {
                                 final String googleAccessToken = value.credential?.accessToken ?? '';
                                 AuthApi.googleLogin(googleAccessToken).then((value) {
@@ -77,9 +79,11 @@ class _LoginPageState extends State<LoginPage> {
                                             title: "from login page")),
                                   );
                                 }).catchError((error) {
+                                  LoadingHelper(context).stopLoading();
                                   ToastHelper.fail("Fail to login with google");
                                 });
                               }).catchError((error) {
+                                LoadingHelper(context).stopLoading();
                               });
                             },
                             mode: SocialLoginButtonMode.single,
