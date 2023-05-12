@@ -17,7 +17,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Widget> pages = const <Widget>[
     ExercisePage(),
     EquipPage(),
-    ProfilePage(),
+    SettingPage(),
   ];
 
   @override
@@ -48,8 +48,8 @@ class _MyHomePageState extends State<MyHomePage> {
             label: 'Equip',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
+            icon: Icon(Icons.settings),
+            label: 'Setting',
           ),
         ],
       ),
