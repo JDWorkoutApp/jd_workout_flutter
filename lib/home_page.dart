@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:workout_app/equip_page.dart';
-import 'package:workout_app/profile_page.dart';
+import 'package:workout_app/pages/setting_page/setting_page.dart';
 import 'package:workout_app/exercise_page.dart';
 
 class HomePage extends StatefulWidget {
