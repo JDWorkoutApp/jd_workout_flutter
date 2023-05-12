@@ -64,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
                                 final String googleAccessToken = value.credential?.accessToken ?? '';
                                 print("after sync google success");
                                 print(googleAccessToken);
-                                AuthApi.GooglLogin(googleAccessToken);
+                                AuthApi.googleLogin(googleAccessToken);
                               }).catchError((error) {
                               });
                             },
