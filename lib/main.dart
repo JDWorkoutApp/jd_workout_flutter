@@ -67,6 +67,7 @@ class MyAppState extends State<MyApp> {
 
     return MaterialApp(
       home: homeWidget,
+      debugShowCheckedModeBanner: dotenv.env['DEBUG_SHOW_CHECK_MODE_BANNER'] == 'true',
       theme: ThemeData(
           fontFamily: 'RobotoMono',
           brightness: Brightness.dark,
