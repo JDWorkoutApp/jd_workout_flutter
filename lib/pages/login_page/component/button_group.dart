@@ -3,6 +3,7 @@ import 'package:workout_app/api/auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workout_app/home_page.dart';
 import 'package:workout_app/register_page.dart';
+import 'package:workout_app/utils/auth_helper.dart';
 import 'package:workout_app/utils/toast_helper.dart';
 
 class ButtonGroup extends StatelessWidget {
@@ -29,8 +30,7 @@ class ButtonGroup extends StatelessWidget {
         Map<String, dynamic> response =
             await AuthApi.login(emailController.text, passwordController.text);
 
-        SharedPreferences prefs = await SharedPreferences.getInstance();
-        await prefs.setString('jwtToken', response["jwtToken"]);
+        await AuthHelper.storeLogin(response["jwtToken"]);
 
         scaffoldMessenger.showSnackBar(
           const SnackBar(content: Text('Login success')),
