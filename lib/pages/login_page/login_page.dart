@@ -2,10 +2,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:social_login_buttons/social_login_buttons.dart';
 import 'package:workout_app/api/auth.dart';
+import 'package:workout_app/home_page.dart';
 import 'package:workout_app/oauth/google_auth.dart';
 import 'package:workout_app/pages/login_page/component/button_group.dart';
 import 'package:workout_app/pages/login_page/component/login_form.dart';
 import 'package:workout_app/pages/login_page/component/logo_text.dart';
+import 'package:workout_app/utils/auth_helper.dart';
+import 'package:workout_app/utils/toast_helper.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -62,9 +65,20 @@ class _LoginPageState extends State<LoginPage> {
                             onPressed: () {
                               GoogleAuth.signInWithGoogle().then((UserCredential value) {
                                 final String googleAccessToken = value.credential?.accessToken ?? '';
-                                print("after sync google success");
-                                print(googleAccessToken);
-                                AuthApi.googleLogin(googleAccessToken);
+                                AuthApi.googleLogin(googleAccessToken).then((value) {
+                                  AuthHelper.storeLogin(value['jwtToken']);
+
+                                  ToastHelper.success("Login success");
+
+                                    final navigator = Navigator.of(context);
+                                  navigator.pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) => const MyHomePage(
+                                            title: "from login page")),
+                                  );
+                                }).catchError((error) {
+                                  ToastHelper.fail("Fail to login with google");
+                                });
                               }).catchError((error) {
                               });
                             },
