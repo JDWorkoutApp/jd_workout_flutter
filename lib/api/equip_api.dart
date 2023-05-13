@@ -1,9 +1,22 @@
+import 'dart:convert';
+
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:workout_app/utils/api_client.dart';
 
 class EquipApi {
   static final String? baseAPIUrl = dotenv.env['BASE_API_URL'];
 
   static Future<bool> store(String name, String note) async {
+
+    final response = await ApiClient().post(ApiClient.getUri('/equip'), body: {
+      'name': name,
+      'note': note,
+    });
+
+    var body = response.body;
+    Map<String, dynamic> data = jsonDecode(body);
+    print(data);
+
     return true;
   }
 
