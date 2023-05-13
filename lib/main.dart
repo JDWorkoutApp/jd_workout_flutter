@@ -4,6 +4,7 @@ import 'package:workout_app/home_page.dart';
 import 'package:workout_app/pages/login_page/login_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:workout_app/utils/auth_helper.dart';
 import 'oauth/firebase_options.dart';
 
 void main() async {
@@ -28,8 +29,7 @@ class MyAppState extends State<MyApp> {
   bool _isLogin = false;
 
   Future<bool> _checkLogin() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? token = prefs.getString('jwtToken');
+    String? token = await AuthHelper.getJwtToken();
     if (token == null) {
       return false;
     }

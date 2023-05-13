@@ -5,4 +5,10 @@ class AuthHelper {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('jwtToken', jwtToken);
   }
+
+  static Future<String?> getJwtToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('jwtToken');
+    return token;
+  }
 }
