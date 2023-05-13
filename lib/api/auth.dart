@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
-import 'package:workout_app/utils/api_helper.dart';
+import 'package:workout_app/utils/api_client.dart';
 
 import '../constants/api_constants.dart';
 
@@ -10,7 +10,7 @@ class AuthApi {
   static final String? baseAPIUrl = dotenv.env['BASE_API_URL'];
 
   static Future<Map<String, dynamic>> googleLogin(String token) async {
-    final response = await http.post(ApiHelper.getUri('/login/google/access-token'), body: {
+    final response = await http.post(ApiClient.getUri('/login/google/access-token'), body: {
       'token': token,
     });
 
@@ -23,7 +23,7 @@ class AuthApi {
   }
 
   static Future<Map<String, dynamic>> login(String email, String password) async {
-    final response = await http.post(ApiHelper.getUri('/login'), body: {
+    final response = await http.post(ApiClient.getUri('/login'), body: {
       'email': email,
       'password': password,
     });
@@ -40,7 +40,7 @@ class AuthApi {
   }
 
   static Future<http.Response> register(String username, String password, String email) {
-    return http.post(ApiHelper.getUri('/register'), body: {
+    return http.post(ApiClient.getUri('/register'), body: {
       'username': username,
       'password': password,
       'email': email,
