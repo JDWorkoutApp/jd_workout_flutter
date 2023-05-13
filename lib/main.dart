@@ -35,7 +35,6 @@ class MyAppState extends State<MyApp> {
     }
 
     return true;
-    // return true;
   }
 
   @override
