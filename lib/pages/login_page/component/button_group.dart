@@ -22,19 +22,11 @@ class ButtonGroup extends StatelessWidget {
       final scaffoldMessenger = ScaffoldMessenger.of(context);
       final navigator = Navigator.of(context);
 
-      scaffoldMessenger.showSnackBar(
-        const SnackBar(content: Text('Processing Data')),
-      );
-
       try {
         Map<String, dynamic> response =
             await AuthApi.login(emailController.text, passwordController.text);
 
         await AuthHelper.storeLogin(response["jwtToken"]);
-
-        scaffoldMessenger.showSnackBar(
-          const SnackBar(content: Text('Login success')),
-        );
 
         navigator.pushReplacement(
           MaterialPageRoute(

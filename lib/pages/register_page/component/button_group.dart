@@ -34,9 +34,6 @@ class ButtonGroup extends StatelessWidget {
           ),
           onPressed: () {
             if (formKey.currentState!.validate()) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('Processing Data')),
-              );
               AuthApi.register(
                 usernameController.text,
                 passwordController.text,
