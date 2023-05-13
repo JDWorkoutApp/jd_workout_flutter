@@ -76,6 +76,9 @@ class MyAppState extends State<MyApp> {
           primaryColor: const Color(0xFFF1E3F2),
           focusColor: const Color(0xFFFF0234),
           scaffoldBackgroundColor: const Color(0xFF280C2A),
+          shadowColor: const Color(0xFFFE413C),
+          cardColor: const Color(0xFF8E2E2C),
+          hintColor: const Color(0xFFD74946),
       ),
     );
   }
