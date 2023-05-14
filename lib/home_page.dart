@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:workout_app/utils/app_version_checker.dart';
-import 'package:workout_app/equip_page.dart';
+import 'package:workout_app/pages/equip_page/equip_page.dart';
 import 'package:workout_app/pages/setting_page/setting_page.dart';
 import 'package:workout_app/exercise_page.dart';
 
