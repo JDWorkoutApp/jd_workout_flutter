@@ -49,6 +49,33 @@ class AppVersionChecker {
 
       return;
     }
+
+    if (latestVersion.compareTo(currentVersion) > 0) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('可更新版本'),
+            content: Text('有新版本可供更新'),
+            actions: [
+              TextButton(
+                child: Text('更新'),
+                onPressed: () {
+                  launchAppStore();
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: Text('取消'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   launchAppStore() async {
