@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:workout_app/api/app_api.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -13,6 +14,10 @@ class AppVersionChecker {
   AppVersionChecker._internal();
 
   Future<void> checkAppVersion(BuildContext context) async {
+    if (dotenv.get('SKIP_APP_VERSION_CHECK') == 'true') {
+      return;
+    }
+
     if (_checked) return;
 
     List<dynamic> result = await Future.wait([
