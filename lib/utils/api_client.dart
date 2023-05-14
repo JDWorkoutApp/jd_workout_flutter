@@ -7,6 +7,10 @@ class ApiClient extends http.BaseClient {
   final http.Client _inner = http.Client();
 
     static Uri getUri(String path) {
+        if (!path.startsWith('/')) {
+            path = '/$path';
+        }
+
         return Uri.parse('${APIConstants.apiPath}$path');
     }
 
@@ -14,6 +18,7 @@ class ApiClient extends http.BaseClient {
   Future<http.StreamedResponse> send(http.BaseRequest request) async {
     String? jwtToken = await AuthHelper.getJwtToken();
     request.headers['Authorization'] = 'Bearer $jwtToken';
+
     return _inner.send(request);
   }
 }
