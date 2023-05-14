@@ -24,7 +24,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     if (widget.checkAppVersion) {
-      AppVersionChecker.instance.checkAppVersion();
+      AppVersionChecker.instance.checkAppVersion(context);
     }
 
     return Scaffold(

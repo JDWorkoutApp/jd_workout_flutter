@@ -33,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    AppVersionChecker.instance.checkAppVersion();
+    AppVersionChecker.instance.checkAppVersion(context);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,

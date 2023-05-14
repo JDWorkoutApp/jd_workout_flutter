@@ -1,33 +1,63 @@
+import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:workout_app/api/app_api.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 class AppVersionChecker {
   static final AppVersionChecker _instance = AppVersionChecker._internal();
+
   static AppVersionChecker get instance => _instance;
 
-  String _currentVersion = '';
   bool _checked = false;
 
   AppVersionChecker._internal();
 
-  Future<void> checkAppVersion() async {
-    print("call checkAppVersion");
+  Future<void> checkAppVersion(BuildContext context) async {
     if (_checked) return;
 
-    print("checkAppVersion start checking");
+    List<dynamic> result = await Future.wait([
+      PackageInfo.fromPlatform(),
+      AppApi.version(),
+    ]);
 
     _checked = true;
-    PackageInfo.fromPlatform().then((PackageInfo packageInfo) {
-      String version = packageInfo.version;
-      String buildNumber = packageInfo.buildNumber;
-      print('version: $version, buildNumber: $buildNumber');
-      AppApi.version().then((AppVersion appVersion) {
-        print('back end appVersion: ${appVersion.latestVersion}, ${appVersion.requiredVersion}');
-      });
-    });
+    PackageInfo packageInfo = result[0];
+    AppVersion appVersion = result[1];
+    String currentVersion = packageInfo.version;
+    String latestVersion = appVersion.latestVersion;
+    String requiredVersion = appVersion.requiredVersion;
+
+    if (requiredVersion.compareTo(currentVersion) > 0) {
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text('App強制更新'),
+            content: Text('您需要更新App版本以繼續使用'),
+            actions: [
+              TextButton(
+                child: Text('前往更新'),
+                onPressed: () {
+                  launchAppStore();
+                },
+              ),
+            ],
+          );
+        },
+      );
+
+      return;
+    }
   }
 
-  String getCurrentVersion() {
-    return _currentVersion;
+  launchAppStore() async {
+    const url =
+        'https://play.google.com/store/apps/details?id=your_app_package_id';
+
+    final Uri _url = Uri.parse(url);
+    if (!await launchUrl(_url)) {
+      throw Exception('Could not launch $_url');
+    }
   }
 }
