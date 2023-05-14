@@ -7,6 +7,7 @@ import 'package:workout_app/oauth/google_auth.dart';
 import 'package:workout_app/pages/login_page/component/button_group.dart';
 import 'package:workout_app/pages/login_page/component/login_form.dart';
 import 'package:workout_app/pages/login_page/component/logo_text.dart';
+import 'package:workout_app/utils/app_version_checker.dart';
 import 'package:workout_app/utils/auth_helper.dart';
 import 'package:workout_app/utils/loading_helper.dart';
 import 'package:workout_app/utils/toast_helper.dart';
@@ -32,6 +33,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    AppVersionChecker.instance.checkAppVersion();
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
@@ -75,7 +78,7 @@ class _LoginPageState extends State<LoginPage> {
                                   final navigator = Navigator.of(context);
                                   navigator.pushReplacement(
                                     MaterialPageRoute(
-                                        builder: (context) => const HomePage(
+                                        builder: (context) => HomePage(
                                             title: "from login page")),
                                   );
                                 }).catchError((error) {

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:workout_app/utils/app_version_checker.dart';
 import 'package:workout_app/equip_page.dart';
 import 'package:workout_app/pages/setting_page/setting_page.dart';
 import 'package:workout_app/exercise_page.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.title});
+  HomePage({super.key, required this.title, this.checkAppVersion = false});
   final String title;
+  bool checkAppVersion = true;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -21,6 +23,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.checkAppVersion) {
+      AppVersionChecker.instance.checkAppVersion();
+    }
+
     return Scaffold(
       body: pages[currentPage],
       bottomNavigationBar: BottomNavigationBar(
