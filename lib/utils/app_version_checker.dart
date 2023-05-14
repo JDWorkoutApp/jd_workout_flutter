@@ -32,54 +32,56 @@ class AppVersionChecker {
     String latestVersion = appVersion.latestVersion;
     String requiredVersion = appVersion.requiredVersion;
 
-    if (requiredVersion.compareTo(currentVersion) > 0) {
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('App強制更新'),
-            content: Text('您需要更新App版本以繼續使用'),
-            actions: [
-              TextButton(
-                child: Text('前往更新'),
-                onPressed: () {
-                  launchAppStore();
-                },
-              ),
-            ],
-          );
-        },
-      );
+    if (context.mounted) {
+      if (requiredVersion.compareTo(currentVersion) > 0) {
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('App強制更新'),
+              content: const Text('您需要更新App版本以繼續使用'),
+              actions: [
+                TextButton(
+                  child: const Text('前往更新'),
+                  onPressed: () {
+                    launchAppStore();
+                  },
+                ),
+              ],
+            );
+          },
+        );
 
-      return;
-    }
+        return;
+      }
 
-    if (latestVersion.compareTo(currentVersion) > 0) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: Text('可更新版本'),
-            content: Text('有新版本可供更新'),
-            actions: [
-              TextButton(
-                child: Text('更新'),
-                onPressed: () {
-                  launchAppStore();
-                  Navigator.of(context).pop();
-                },
-              ),
-              TextButton(
-                child: Text('取消'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        },
-      );
+      if (latestVersion.compareTo(currentVersion) > 0) {
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: const Text('可更新版本'),
+              content: const Text('有新版本可供更新'),
+              actions: [
+                TextButton(
+                  child: Text('更新'),
+                  onPressed: () {
+                    launchAppStore();
+                    Navigator.of(context).pop();
+                  },
+                ),
+                TextButton(
+                  child: const Text('取消'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      }
     }
   }
 
