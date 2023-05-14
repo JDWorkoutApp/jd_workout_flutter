@@ -8,6 +8,7 @@ import 'package:workout_app/utils/auth_helper.dart';
 import 'oauth/firebase_options.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
 
   await Firebase.initializeApp(
