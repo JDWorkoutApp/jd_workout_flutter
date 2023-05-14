@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:workout_app/api/auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:workout_app/home_page.dart';
+import 'package:workout_app/pages/home_page/home_page.dart';
 import 'package:workout_app/register_page.dart';
 import 'package:workout_app/utils/toast_helper.dart';
 

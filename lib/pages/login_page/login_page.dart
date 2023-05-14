@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:social_login_buttons/social_login_buttons.dart';
 import 'package:workout_app/api/auth.dart';
-import 'package:workout_app/home_page.dart';
+import 'package:workout_app/pages/home_page/home_page.dart';
 import 'package:workout_app/oauth/google_auth.dart';
 import 'package:workout_app/pages/login_page/component/button_group.dart';
 import 'package:workout_app/pages/login_page/component/login_form.dart';
