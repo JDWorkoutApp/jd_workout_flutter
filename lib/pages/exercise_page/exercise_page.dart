@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:workout_app/dialog/choose_equip_dialog.dart';
 import 'package:workout_app/list/exercise_list.dart';
-import 'models/equip_model.dart';
+import '../../models/equip_model.dart';
 
 final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
   onPrimary: Colors.black87,

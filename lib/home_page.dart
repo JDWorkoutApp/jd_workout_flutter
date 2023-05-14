@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:workout_app/utils/app_version_checker.dart';
 import 'package:workout_app/pages/equip_page/equip_page.dart';
 import 'package:workout_app/pages/setting_page/setting_page.dart';
-import 'package:workout_app/exercise_page.dart';
+import 'package:workout_app/pages/exercise_page/exercise_page.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({super.key, required this.title, this.checkAppVersion = false});
