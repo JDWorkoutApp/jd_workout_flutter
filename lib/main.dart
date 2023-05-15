@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workout_app/pages/home_page/home_page.dart';
 import 'package:workout_app/pages/login_page/login_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
