@@ -5,6 +5,8 @@ import 'package:workout_app/dialog/equip_weights_dialog.dart';
 import 'package:workout_app/models/equip_model.dart';
 import 'package:workout_app/utils/toast_helper.dart';
 
+import '../models/equip_summary_model.dart';
+
 class EquipList extends StatefulWidget {
   const EquipList({Key? key}) : super(key: key);
 
@@ -14,7 +16,7 @@ class EquipList extends StatefulWidget {
 
 class _EquipListState extends State<EquipList> {
   final ScrollController _scrollController = ScrollController();
-  List<EquipModel> _items = [];
+  List<EquipSummaryModel> _items = [];
   int _page = 1;
   bool _isLoading = false;
 
@@ -51,14 +53,7 @@ class _EquipListState extends State<EquipList> {
 
     var result = await EquipApi.get(_page);
 
-    List<EquipModel> items = result['data']
-        .map<EquipModel>((item) =>
-            EquipModel(
-                id: item['id'],
-                name: item['name'],
-                note: item['note'],
-                weights: item['weights'].cast<double>().toList())    )
-        .toList();
+    List<EquipSummaryModel> items = result.equipSummaries;
 
     setState(() {
       _items.addAll(items);
@@ -79,7 +74,7 @@ class _EquipListState extends State<EquipList> {
           } else {
             final item = _items[index];
             return Dismissible(
-              key: Key(item.id.toString()),
+              key: Key(item.equip.id.toString()),
               confirmDismiss: (DismissDirection direction) async {
                 return await showDialog(
                   context: context,
@@ -102,7 +97,7 @@ class _EquipListState extends State<EquipList> {
                 );
               },
               onDismissed: (direction) {
-                EquipApi.delete(item.id).then((value) => {
+                EquipApi.delete(item.equip.id).then((value) => {
                       if (value)
                         {
                           setState(() {
@@ -123,8 +118,8 @@ class _EquipListState extends State<EquipList> {
                 ),
               ),
               child: ListTile(
-                title: Text(item.name),
-                subtitle: Text(item.note),
+                title: Text(item.equip.name),
+                subtitle: Text(item.equip.note),
                 trailing: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -133,10 +128,10 @@ class _EquipListState extends State<EquipList> {
                       onPressed: () {
                         showDialog(
                             context: context,
-                            builder: (BuildContext context) => EquipWeightDialog(weights: item.weights)
+                            builder: (BuildContext context) => EquipWeightDialog(weights: item.equip.weights)
                         ).then((result) {
                           if (result != false) {
-                            EquipApi.putWeight(item.id, result)
+                            EquipApi.putWeight(item.equip.id, result)
                                 .then((apiResult) {
                               if (apiResult) {
                                 ToastHelper.success("Added");
@@ -154,11 +149,11 @@ class _EquipListState extends State<EquipList> {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
-                        return EquipDialog(name: item.name, note: item.note);
+                        return EquipDialog(name: item.equip.name, note: item.equip.note);
                       },
                     ).then((result) {
                       if (result != false) {
-                        EquipApi.patch(item.id, result['name'], result['note'])
+                        EquipApi.patch(item.equip.id, result['name'], result['note'])
                             .then((apiResult) {
                           if (apiResult) {
                             ToastHelper.success("Updated");
