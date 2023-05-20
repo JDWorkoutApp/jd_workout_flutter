@@ -91,11 +91,22 @@ class _LoginFormState extends State<LoginForm> {
               if (value == null || value.isEmpty) {
                 return 'Please enter password';
               }
-
               return null;
             },
           ),
-        )
+        ),
+        GestureDetector(
+          onTap: () {
+          },
+          child: Text(
+            'Forgot password',
+            textAlign: TextAlign.right,
+            style: TextStyle(
+              color: Theme.of(context).secondaryHeaderColor,
+              decoration: TextDecoration.underline,
+            ),
+          ),
+        ),
       ],
     );
   }
