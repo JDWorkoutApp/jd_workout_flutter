@@ -11,10 +11,10 @@ class EquipList extends StatefulWidget {
   const EquipList({Key? key}) : super(key: key);
 
   @override
-  _EquipListState createState() => _EquipListState();
+  EquipListState createState() => EquipListState();
 }
 
-class _EquipListState extends State<EquipList> {
+class EquipListState extends State<EquipList> {
   final ScrollController _scrollController = ScrollController();
   List<EquipSummaryModel> _items = [];
   int _page = 1;
