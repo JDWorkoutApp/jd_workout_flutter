@@ -29,7 +29,7 @@ class EquipApi {
   }
 
   static Future<EquipSummaryListModel> get(int page) async {
-    final response = await ApiClient().get(ApiClient.getUri('/equip/?perPage=10&currentPage=$page'));
+    final response = await ApiClient().get(ApiClient.getUri('/equip/?perPage=30&currentPage=$page'));
 
     if (response.statusCode != 200) {
       throw Exception('Failed to load equips');
