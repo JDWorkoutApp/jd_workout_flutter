@@ -100,7 +100,7 @@ class _LoginFormState extends State<LoginForm> {
           child: Padding(
             padding: const EdgeInsets.only(bottom: 20.0),
             child: Text(
-              'Forgot password',
+              'FORGOT PASSWORD',
               textAlign: TextAlign.right,
               style: TextStyle(
                 color: Theme.of(context).secondaryHeaderColor,
