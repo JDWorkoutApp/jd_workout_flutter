@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:workout_app/api/auth.dart';
+import 'package:workout_app/utils/toast_helper.dart';
 
 class ForgetPasswordPage extends StatefulWidget {
   const ForgetPasswordPage({super.key});
@@ -97,7 +99,23 @@ class ForgetPasswordPageState extends State<ForgetPasswordPage> {
                               ),
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-                                //   todo
+                                  AuthApi.forgetPassword(
+                                          _emailController.text.trim())
+                                      .then((value) {
+                                    if (value) {
+                                      ToastHelper.success("Reset success");
+                                      Navigator.pop(context);
+                                    }
+                                  }).catchError((error) {
+                                    if (error.message &&
+                                        error.message['statusCode'] &&
+                                        error.message['statusCode'] == 422) {
+                                      ToastHelper.fail(
+                                          "Email is not registered");
+                                    } else {
+                                      ToastHelper.fail("Reset failed");
+                                    }
+                                  });
                                 }
                               },
                               child: const Text('RESET PASSWORD'),

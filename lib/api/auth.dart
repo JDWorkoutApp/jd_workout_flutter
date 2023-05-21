@@ -46,4 +46,21 @@ class AuthApi {
       'email': email,
     });
   }
+
+  static Future<bool> forgetPassword(String email) async {
+    final response = await http.post(ApiClient.getUri('/forget-password'), body: {
+      'email': email,
+    });
+
+    var body = response.body;
+    Map<String, dynamic> data = jsonDecode(body);
+    if (response.statusCode != 200) {
+      throw Exception({
+        "message": data["message"],
+        "statusCode": response.statusCode,
+      });
+    }
+
+    return true;
+  }
 }
