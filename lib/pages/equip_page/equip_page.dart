@@ -14,8 +14,10 @@ class EquipPage extends StatefulWidget {
 class _EquipPageState extends State<EquipPage> {
   @override
   Widget build(BuildContext context) {
+    GlobalKey<EquipListState> equipListState = GlobalKey();
+
     return Scaffold(
-      body: EquipList(), // add the InfiniteList widget here
+      body: EquipList(key: equipListState,), // add the InfiniteList widget here
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(
@@ -28,6 +30,7 @@ class _EquipPageState extends State<EquipPage> {
               EquipApi.store(result['name'], result['note']).then((apiResult) {
                 if (apiResult) {
                   ToastHelper.success("Added equip");
+                  equipListState.currentState!.resetList();
                 } else {
                   ToastHelper.fail("Failed to add equip");
                 }

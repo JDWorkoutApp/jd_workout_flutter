@@ -42,6 +42,16 @@ class EquipListState extends State<EquipList> {
     }
   }
 
+  resetList() {
+    setState(() {
+      _items = [];
+      _page = 1;
+      _isLoading = false;
+    });
+
+    _loadMoreItems();
+  }
+
   Future<void> _loadMoreItems() async {
     if (_isLoading) {
       return;
