@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:workout_app/pages/forget_password_page/forget_password_page.dart';
 
 class LoginForm extends StatefulWidget {
   final TextEditingController emailController;
@@ -96,7 +97,12 @@ class _LoginFormState extends State<LoginForm> {
           ),
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ForgetPasswordPage()),
+            );
+          },
           child: Padding(
             padding: const EdgeInsets.only(bottom: 20.0),
             child: Text(
