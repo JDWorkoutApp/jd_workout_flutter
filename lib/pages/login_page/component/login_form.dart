@@ -96,14 +96,16 @@ class _LoginFormState extends State<LoginForm> {
           ),
         ),
         GestureDetector(
-          onTap: () {
-          },
-          child: Text(
-            'Forgot password',
-            textAlign: TextAlign.right,
-            style: TextStyle(
-              color: Theme.of(context).secondaryHeaderColor,
-              decoration: TextDecoration.underline,
+          onTap: () {},
+          child: Padding(
+            padding: const EdgeInsets.only(bottom: 20.0),
+            child: Text(
+              'Forgot password',
+              textAlign: TextAlign.right,
+              style: TextStyle(
+                color: Theme.of(context).secondaryHeaderColor,
+                decoration: TextDecoration.underline,
+              ),
             ),
           ),
         ),
