@@ -11,9 +11,6 @@ class EquipSummaryListModel {
   });
 
   factory EquipSummaryListModel.fromJson(Map<String, dynamic> json) {
-    print("jsonData");
-    print(json['data']);
-
     return EquipSummaryListModel(
       total: json['total'],
       equipSummaries: List<EquipSummaryModel>.from(
