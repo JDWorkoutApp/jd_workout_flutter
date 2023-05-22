@@ -66,4 +66,27 @@ class AuthApi {
 
     return true;
   }
+
+  static Future<bool> resetPassword(
+      {required String oldPassword,
+      required String newPassword,
+      required String confirmNewPassword}) async {
+    final response =
+        await http.post(ApiClient.getUri('/forget-password'), body: {
+      'password': oldPassword,
+      'newPassword': newPassword,
+      'confirmPassword': confirmNewPassword,
+    });
+
+    var body = response.body;
+    Map<String, dynamic> data = jsonDecode(body);
+    if (response.statusCode != 200) {
+      throw Exception({
+        "message": data["message"],
+        "statusCode": response.statusCode,
+      });
+    }
+
+    return true;
+  }
 }
