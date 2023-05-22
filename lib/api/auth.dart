@@ -33,11 +33,11 @@ class AuthApi {
       throw Exception(data["message"]);
     }
 
-    if (data.containsKey('reset') && data['reset'] == 1) {
-      throw ResetPasswordNeededException();
-    }
-
     String jwtToken = data["token"];
+
+    if (data.containsKey('reset') && data['reset'] == 1) {
+      throw ResetPasswordNeededException(jwt: jwtToken);
+    }
 
     return {"jwtToken": jwtToken};
   }

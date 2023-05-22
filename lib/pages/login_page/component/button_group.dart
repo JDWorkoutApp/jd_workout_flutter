@@ -37,10 +37,16 @@ class ButtonGroup extends StatelessWidget {
         );
       } catch (e) {
         if (e is ResetPasswordNeededException) {
-          Navigator.push(
+          await AuthHelper.storeLogin(e.jwt);
+
+          if (context.mounted) {
+            Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => ResetPasswordPage(oldPassword: passwordController.text)),
+              MaterialPageRoute(
+                  builder: (context) =>
+                      ResetPasswordPage(oldPassword: passwordController.text)),
             );
+          }
         } else {
           ToastHelper.fail(e.toString());
         }

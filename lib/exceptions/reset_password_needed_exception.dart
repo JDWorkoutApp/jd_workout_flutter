@@ -1,3 +1,4 @@
 class ResetPasswordNeededException implements Exception {
-  ResetPasswordNeededException();
+  final String jwt;
+  ResetPasswordNeededException({required this.jwt});
 }
