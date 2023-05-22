@@ -16,6 +16,46 @@ class SettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Container(
+        child: Column(children: [
+          Expanded(
+              flex: 5,
+              child: Container()
+          ),
+          Expanded(
+            flex: 5,
+              child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size.fromHeight(10),
+                backgroundColor: Theme.of(context).cardColor,
+                foregroundColor: Theme.of(context).hintColor,
+                side:
+                    BorderSide(color: Theme.of(context).shadowColor, width: 3),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+              ),
+              onPressed: () => _logout(context),
+              child: const Text(
+                'LOGOUT',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 40,
+                ),
+              ),
+            )
+          ),
+          Expanded(
+              flex: 5,
+              child: Container()
+          ),
+        ]),
+      )
+    );
+
+
+    return Scaffold(
         body: Center(
             child: Container(
       constraints:
