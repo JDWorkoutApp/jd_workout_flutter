@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
+import 'package:workout_app/exceptions/reset_password_needed_exception.dart';
 import 'package:workout_app/utils/api_client.dart';
 
 class AuthApi {
@@ -30,6 +31,10 @@ class AuthApi {
     Map<String, dynamic> data = jsonDecode(body);
     if (response.statusCode != 200) {
       throw Exception(data["message"]);
+    }
+
+    if (data.containsKey('reset') && data['reset'] == 1) {
+      throw ResetPasswordNeededException();
     }
 
     String jwtToken = data["token"];

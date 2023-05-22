@@ -6,6 +6,8 @@ import 'package:workout_app/pages/register_page/register_page.dart';
 import 'package:workout_app/utils/auth_helper.dart';
 import 'package:workout_app/utils/toast_helper.dart';
 
+import '../../../exceptions/reset_password_needed_exception.dart';
+
 class ButtonGroup extends StatelessWidget {
   final formKey;
   final emailController;
@@ -33,7 +35,11 @@ class ButtonGroup extends StatelessWidget {
               builder: (context) => HomePage(title: "from login page")),
         );
       } catch (e) {
-        ToastHelper.fail(e.toString());
+        if (e is ResetPasswordNeededException) {
+          ToastHelper.success("todo, jump to reset page");
+        } else {
+          ToastHelper.fail(e.toString());
+        }
       }
     }
   }
