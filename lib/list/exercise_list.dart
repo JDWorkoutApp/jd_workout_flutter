@@ -55,6 +55,11 @@ class _ExerciseListState extends State<ExerciseList> {
     });
   }
 
+  dateFormat(String dateTimeString) {
+    DateTime dateTime = DateTime.parse(dateTimeString);
+    return dateTime.hour.toString().padLeft(2, '0') + ':' + dateTime.minute.toString().padLeft(2, '0');
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,7 +105,7 @@ class _ExerciseListState extends State<ExerciseList> {
                 ),
               ),
               child: ListTile(
-                title: Text("Training date: " + training.date + ' ' + training.start + ' ~ ' + training.end),
+                title: Text("Training date: \n" + training.date + ' ' + dateFormat(training.start) + ' ~ ' + dateFormat(training.end) + "\n"),
                 subtitle: ListView.builder(
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
