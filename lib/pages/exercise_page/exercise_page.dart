@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:workout_app/dialog/choose_equip_dialog.dart';
 import 'package:workout_app/list/exercise_list.dart';
+import 'package:workout_app/models/equip_summary_model.dart';
 import '../../models/equip_model.dart';
 
 final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
@@ -34,10 +35,12 @@ class _ExercisePageState extends State<ExercisePage> {
   // 宣告一些變數和資料庫存取相關的屬性
   // ...
 
-  EquipModel selectedEquip = EquipModel(
-      id: 0,
-      name: '-',
-      note: '-'
+  EquipSummaryModel selectedEquip = EquipSummaryModel(
+      equip: EquipModel(
+        id: 0,
+        name: '請選擇器材',
+        note: '-'
+      ),
   );
 
   @override
@@ -52,7 +55,7 @@ class _ExercisePageState extends State<ExercisePage> {
               child: Column(
                 children: <Widget>[
                   RichText(
-                    text: TextSpan(text: selectedEquip.name),
+                    text: TextSpan(text: selectedEquip.equip.name),
                     selectionRegistrar: SelectionContainer.maybeOf(context),
                     selectionColor: const Color(0xAF6694e8),
                   ),
@@ -66,7 +69,7 @@ class _ExercisePageState extends State<ExercisePage> {
                         },
                       ).then((result) {
                         setState(() {
-                            selectedEquip = result as EquipModel;
+                            selectedEquip = result as EquipSummaryModel;
                         });
                       });
                     },

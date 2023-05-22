@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:workout_app/models/equip_model.dart';
+import 'package:workout_app/api/equip_api.dart';
+import 'package:workout_app/models/equip_summary_model.dart';
 
 class ChooseEquipDialog extends StatefulWidget {
   ChooseEquipDialog({Key? key}) : super(key: key);
@@ -9,9 +10,10 @@ class ChooseEquipDialog extends StatefulWidget {
 
 class _ChooseEquipDialogState extends State<ChooseEquipDialog> {
   final ScrollController _scrollController = ScrollController();
-  List<EquipModel> equipList = [];
+  List<EquipSummaryModel> equipList = [];
 
   bool _isLoading = false;
+  int page = 1;
 
   @override
   void initState() {
@@ -32,85 +34,14 @@ class _ChooseEquipDialogState extends State<ChooseEquipDialog> {
       return;
     }
 
+    var result = await EquipApi.get(page);
+
+    List<EquipSummaryModel> items = result.equipSummaries;
+
     setState(() {
+      equipList.addAll(items);
       _isLoading = true;
-    });
-
-    setState(() {
-      _isLoading = false;
-
-      equipList.addAll([
-        EquipModel(
-          id: 1,
-          name: 'Dumbbell',
-          note: 'Dumbbell note',
-        ),
-        EquipModel(
-          id: 2,
-          name: 'Barbell',
-          note: 'Barbell note',
-        ),
-        EquipModel(
-          id: 3,
-          name: 'Kettlebell',
-          note: 'Kettlebell note',
-        ),
-        EquipModel(
-          id: 1,
-          name: 'Dumbbell',
-          note: 'Dumbbell note',
-        ),
-        EquipModel(
-          id: 2,
-          name: 'Barbell',
-          note: 'Barbell note',
-        ),
-        EquipModel(
-          id: 3,
-          name: 'Kettlebell',
-          note: 'Kettlebell note',
-        ),
-        EquipModel(
-          id: 1,
-          name: 'Dumbbell',
-          note: 'Dumbbell note',
-        ),
-        EquipModel(
-          id: 2,
-          name: 'Barbell',
-          note: 'Barbell note',
-        ),
-        EquipModel(
-          id: 3,
-          name: 'Kettlebell',
-          note: 'Kettlebell note',
-        ),
-        EquipModel(
-          id: 1,
-          name: 'Dumbbell',
-          note: 'Dumbbell note',
-        ),
-        EquipModel(
-          id: 2,
-          name: 'Barbell',
-          note: 'Barbell note',
-        ),
-        EquipModel(
-          id: 3,
-          name: 'Kettlebell',
-          note: 'Kettlebell note',
-        ),
-        EquipModel(
-          id: 1,
-          name: 'Dumbbell',
-          note: 'Dumbbell note',
-        ),
-        EquipModel(
-          id: 2,
-          name: 'Barbell',
-          note: 'Barbell note',
-        ),
-      ]);
+      page++;
     });
   }
 
@@ -130,8 +61,8 @@ class _ChooseEquipDialogState extends State<ChooseEquipDialog> {
                 Navigator.of(context).pop(equipList[index]);
               },
               child: ListTile(
-                title: Text(equipList[index].name),
-                subtitle: Text(equipList[index].note),
+                title: Text(equipList[index].equip.name),
+                subtitle: Text(equipList[index].equip.note),
               ),
             );
           },
