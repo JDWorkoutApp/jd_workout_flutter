@@ -38,13 +38,10 @@ class _ExercisePageState extends State<ExercisePage> {
   TextEditingController weightController = TextEditingController();
   TextEditingController repsController = TextEditingController();
 
-  // 宣告一些變數和資料庫存取相關的屬性
-  // ...
-
   EquipSummaryModel selectedEquip = EquipSummaryModel(
       equip: EquipModel(
         id: 0,
-        name: '請選擇器材',
+        name: 'Equip select',
         note: '-'
       ),
   );
@@ -81,9 +78,8 @@ class _ExercisePageState extends State<ExercisePage> {
                           });
                         });
                       },
-                      child: Text('選擇器材'),
+                      child: Text('Equip select'),
                     ),
-                    // 輸入重量和 reps 的欄位
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: <Widget>[
@@ -99,7 +95,7 @@ class _ExercisePageState extends State<ExercisePage> {
                               // Allow only numbers and dots up to 2 decimal places
                             ],
                             decoration: InputDecoration(
-                              labelText: '輸入重量',
+                              labelText: 'Weight',
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
@@ -121,7 +117,7 @@ class _ExercisePageState extends State<ExercisePage> {
                               // Allow only numbers and dots up to 2 decimal places
                             ], // Show decimal keyboard on mobile devices
                             decoration: InputDecoration(
-                              labelText: '輸入 reps',
+                              labelText: 'reps',
                             ),
                             validator: (value) {
                               if (value == null || value.isEmpty) {
