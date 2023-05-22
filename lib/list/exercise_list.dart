@@ -65,7 +65,7 @@ class _ExerciseListState extends State<ExerciseList> {
           if (index == _items.length) {
             return _buildProgressIndicator();
           } else {
-            final item = _items[index];
+            final training = _items[index];
             return Dismissible(
               key: Key(index.toString()),
               confirmDismiss: (DismissDirection direction) async {
@@ -100,10 +100,33 @@ class _ExerciseListState extends State<ExerciseList> {
                 ),
               ),
               child: ListTile(
-                title: Text("test"),
-                subtitle: Text("teaoue"),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
+                title: Text("Training date: " + training.date + ' ' + training.start + ' ~ ' + training.end),
+                subtitle: ListView.builder(
+                  shrinkWrap: true,
+                  physics: NeverScrollableScrollPhysics(),
+                  itemCount: training.equipments.length,
+                  itemBuilder: (context, index) {
+                    final equipment = training.equipments[index];
+                    return ListTile(
+                      title: Text("Equip name: " + equipment.name),
+                      subtitle: ListView.builder(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemCount: equipment.records?.length,
+                        itemBuilder: (context, index) {
+                          final record = equipment.records?[index];
+                          return ListTile(
+                            title: Text("record: " + (record?.weight.toString() ?? '')
+                                + " x " +
+                                (record?.reps.toString() ?? '') +
+                                " x " +
+                                (record?.sets.toString() ?? '')
+                            ) ,
+                          );
+                        },
+                      )
+                    );
+                  },
                 ),
               ),
             );
