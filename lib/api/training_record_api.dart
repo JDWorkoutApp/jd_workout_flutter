@@ -35,74 +35,9 @@ class TrainingRecordApi {
   }
 
   static Future<TrainingRecordListModel> get(int page) async {
-    Map<String, dynamic> json = {
-      "total": 55,
-      "data": [
-        {
-          "date": "2021-05-01",
-          "start": "10:00:00",
-          "end": "11:00:00",
-          "equips": [
-            {
-              "id": 11,
-              "name": "Bench Press",
-              "note": "Note for bench press",
-              "records": [
-                {
-                  "id": 1,
-                  "weight": 200,
-                  "reps": 10,
-                  "sets": 3,
-                  "notes": ["tired", "good", "bad"],
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "date": "2021-05-02",
-          "start": "10:00:00",
-          "end": "11:00:00",
-          "equips": [
-            {
-              "id": 11,
-              "name": "Bench Press",
-              "note": "Note for bench press",
-              "records": [
-                {
-                  "id": 1,
-                  "weight": 200,
-                  "reps": 10,
-                  "sets": 3,
-                  "notes": ["tired", "good", "bad"],
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "date": "2021-05-03",
-          "start": "10:00:00",
-          "end": "11:00:00",
-          "equips": [
-            {
-              "id": 11,
-              "name": "Bench Press",
-              "note": "Note for bench press",
-              "records": [
-                {
-                  "id": 1,
-                  "weight": 200,
-                  "reps": 10,
-                  "sets": 3,
-                  "notes": ["tired", "good", "bad"],
-                }
-              ]
-            }
-          ]
-        },
-      ]
-    };
+    final response = await ApiClient().get(ApiClient.getUri('/record/?perPage=30&currentPage=$page'));
+    var body = response.body;
+    Map<String, dynamic> json = jsonDecode(body);
 
     TrainingRecordListModel trainingData = TrainingRecordListModel.fromJson(json);
 
