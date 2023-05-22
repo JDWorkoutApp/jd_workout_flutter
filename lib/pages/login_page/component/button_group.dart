@@ -3,6 +3,7 @@ import 'package:workout_app/api/auth.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:workout_app/pages/home_page/home_page.dart';
 import 'package:workout_app/pages/register_page/register_page.dart';
+import 'package:workout_app/pages/reset_password_page/reset_password_page.dart';
 import 'package:workout_app/utils/auth_helper.dart';
 import 'package:workout_app/utils/toast_helper.dart';
 
@@ -36,7 +37,10 @@ class ButtonGroup extends StatelessWidget {
         );
       } catch (e) {
         if (e is ResetPasswordNeededException) {
-          ToastHelper.success("todo, jump to reset page");
+          Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ResetPasswordPage()),
+            );
         } else {
           ToastHelper.fail(e.toString());
         }
