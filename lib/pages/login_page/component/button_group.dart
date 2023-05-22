@@ -39,7 +39,7 @@ class ButtonGroup extends StatelessWidget {
         if (e is ResetPasswordNeededException) {
           Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const ResetPasswordPage()),
+              MaterialPageRoute(builder: (context) => ResetPasswordPage(oldPassword: passwordController.text)),
             );
         } else {
           ToastHelper.fail(e.toString());

@@ -3,7 +3,9 @@ import 'package:workout_app/api/auth.dart';
 import 'package:workout_app/utils/toast_helper.dart';
 
 class ResetPasswordPage extends StatefulWidget {
-  const ResetPasswordPage({Key? key});
+  String ?oldPassword;
+  ResetPasswordPage({Key? key, this.oldPassword})
+      : super(key: key);
 
   @override
   _ResetPasswordPageState createState() => _ResetPasswordPageState();
@@ -14,6 +16,12 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
   final _oldPasswordController = TextEditingController();
   final _newPasswordController = TextEditingController();
   final _confirmNewPasswordController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _oldPasswordController.text = widget.oldPassword ?? '';
+  }
 
   @override
   void dispose() {
