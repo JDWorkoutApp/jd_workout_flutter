@@ -151,7 +151,7 @@ class _ExercisePageState extends State<ExercisePage> {
                           });
                         }
                       },
-                      child: const Text('送出'),
+                      child: const Text('Add record'),
                     ),
                   ],
                 ),
