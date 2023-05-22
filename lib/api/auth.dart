@@ -72,7 +72,7 @@ class AuthApi {
       required String newPassword,
       required String confirmNewPassword}) async {
     final response =
-        await http.post(ApiClient.getUri('/forget-password'), body: {
+        await ApiClient().post(ApiClient.getUri('/reset-password'), body: {
       'password': oldPassword,
       'newPassword': newPassword,
       'confirmPassword': confirmNewPassword,
