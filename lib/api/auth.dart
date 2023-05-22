@@ -4,8 +4,6 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:workout_app/utils/api_client.dart';
 
-import '../constants/api_constants.dart';
-
 class AuthApi {
   static final String? baseAPIUrl = dotenv.env['BASE_API_URL'];
 
