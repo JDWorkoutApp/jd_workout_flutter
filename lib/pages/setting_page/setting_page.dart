@@ -17,23 +17,28 @@ class SettingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Container(
-        child: Column(children: [
-          Expanded(
+        resizeToAvoidBottomInset: false,
+        body: Container(
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+            Expanded(
+                flex: 5,
+                child: Container()),
+            Expanded(
+                flex: 2,
+                child: Padding(
+                  padding: const EdgeInsets.only(bottom: 5),
+                  child: Text(
+                    'Settings',
+                    style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                  ),
+                )),
+            Expanded(
               flex: 5,
-              child: Container()
-          ),
-          Expanded(
-            flex: 5,
               child: SettingButtons(),
-          ),
-          Expanded(
-              flex: 5,
-              child: Container()
-          ),
-        ]),
-      )
-    );
+            ),
+            Expanded(flex: 5, child: Container()),
+          ]),
+        ));
   }
 }

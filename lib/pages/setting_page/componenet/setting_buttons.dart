@@ -1,71 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:workout_app/pages/login_page/login_page.dart';
-import 'package:workout_app/pages/reset_password_page/reset_password_page.dart';
+import 'package:workout_app/pages/setting_page/componenet/logout_button.dart';
+import 'package:workout_app/pages/setting_page/componenet/reset-password-button.dart';
 
 class SettingButtons extends StatelessWidget {
   const SettingButtons();
 
-  void _logout(BuildContext context) async {
-    SharedPreferences.getInstance().then((prefs) {
-      prefs.remove("jwtToken");
-      Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => const LoginPage()));
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
+    List<Widget> items = [
+      ResetPasswordButton(),
+      LogoutButton(),
+    ];
+
     return Column(children: [
-      Expanded(
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            minimumSize: const Size.fromHeight(10),
-            backgroundColor: Theme.of(context).cardColor,
-            foregroundColor: Theme.of(context).hintColor,
-            side: BorderSide(color: Theme.of(context).shadowColor, width: 3),
-            shape: RoundedRectangleBorder(
+      Container(
+            decoration: BoxDecoration(
+              color: Theme.of(context).cardColor,
               borderRadius: BorderRadius.circular(15),
             ),
-          ),
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>ResetPasswordPage(),
-            ));
-          },
-          child: const Text(
-            'RESET PASSWORD',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 40,
+            child: ListView.separated(
+              separatorBuilder: (context, index) {
+                return Divider();
+              },
+              itemCount: items.length,
+              itemBuilder: (BuildContext context, int index) {
+                return items[index];
+              },
+              shrinkWrap: true,
+              padding: EdgeInsets.zero,
+              physics: ScrollPhysics(),
             ),
-          ),
         ),
-      ),
-      const SizedBox(height: 20),
-            Expanded(
-        child: ElevatedButton(
-          style: ElevatedButton.styleFrom(
-            minimumSize: const Size.fromHeight(10),
-            backgroundColor: Theme.of(context).cardColor,
-            foregroundColor: Theme.of(context).hintColor,
-            side: BorderSide(color: Theme.of(context).shadowColor, width: 3),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15),
-            ),
-          ),
-          onPressed: () => _logout(context),
-          child: const Text(
-            'LOGOUT',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 40,
-            ),
-          ),
-        ),
-      ),
     ]);
   }
 }
