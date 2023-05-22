@@ -133,8 +133,6 @@ class _ExercisePageState extends State<ExercisePage> {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 20.0),
-                    // 送出按鈕
                     ElevatedButton(
                       style: raisedButtonStyle,
                       onPressed: () {
