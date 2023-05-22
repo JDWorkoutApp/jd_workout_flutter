@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:workout_app/api/training_record_api.dart';
 import 'package:workout_app/dialog/choose_equip_dialog.dart';
 import 'package:workout_app/list/exercise_list.dart';
 import 'package:workout_app/models/equip_summary_model.dart';
@@ -141,11 +142,17 @@ class _ExercisePageState extends State<ExercisePage> {
                             ToastHelper.fail("Please select equipment");
                             return;
                           }
-                          print('送出');
-                          print('重量：' + weightController.text);
-                          print('reps：' + repsController.text);
-                          print(selectedEquip);
-                          print(selectedEquip.equip.id);
+
+                          TrainingRecordApi.store(
+                            selectedEquip.equip.id,
+                            double.tryParse(weightController.text) ?? 0,
+                            double.tryParse(repsController.text) ?? 0,
+                            ''
+                          ).then((value) {
+                            ToastHelper.success('success');
+                          }).catchError((error) {
+                            ToastHelper.fail('fail');
+                          });
                         }
                       },
                       child: const Text('送出'),
