@@ -30,7 +30,7 @@ class RegisterPageState extends State<RegisterPage> {
       body: Container(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("images/login-background.png"),
+            image: AssetImage("assets/images/login-background.png"),
             fit: BoxFit.cover,
           ),
         ),
