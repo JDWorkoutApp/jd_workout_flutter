@@ -36,3 +36,7 @@ Finally, you should be able to open google OAuth in login page.
 ### Flutter install package
 
 `flutter pub get`
+
+## Build
+
+` flutter build apk --release`
