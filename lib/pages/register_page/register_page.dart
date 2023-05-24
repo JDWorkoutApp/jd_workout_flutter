@@ -1,4 +1,6 @@
+import 'package:animated_glitch/animated_glitch.dart';
 import 'package:flutter/material.dart';
+import 'package:workout_app/pages/login_page/component/logo_text.dart';
 import 'package:workout_app/pages/register_page//component/button_group.dart';
 import 'package:workout_app/pages/register_page/component/register_form.dart';
 
@@ -14,7 +16,11 @@ class RegisterPageState extends State<RegisterPage> {
   final _usernameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _emailController = TextEditingController();
-
+  final _animateController = AnimatedGlitchController(
+    frequency: const Duration(milliseconds: 200),
+    level: 1.2,
+    distortionShift: const DistortionShift(count: 3),
+  );
   @override
   void dispose() {
     _usernameController.dispose();
@@ -27,53 +33,63 @@ class RegisterPageState extends State<RegisterPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/login-background.png"),
-            fit: BoxFit.cover,
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: AnimatedGlitch(
+                controller: _animateController,
+                child: Image.asset(
+                  'assets/images/login-background.png',
+                  fit: BoxFit.cover,
+                )),
           ),
-        ),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              Expanded(
-                flex: 7,
-                child: Row(),
-              ),
-              Expanded(
-                  flex: 6,
-                  child: Align(
+          Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                const Expanded(
+                    flex: 5,
+                    child: Align(
                       alignment: Alignment.center,
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 16.0),
-                        constraints: BoxConstraints(
-                            maxWidth: MediaQuery.of(context).size.width * 0.8),
-                        child: RegisterForm(
-                            userNameController: _usernameController,
-                            emailController: _emailController,
-                            passwordController: _passwordController),
-                      ))),
-              Expanded(
+                      child: LogoText(),
+                    )),
+                Expanded(
                   flex: 2,
-                  child: Align(
-                      alignment: Alignment.center,
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 16.0),
-                        constraints: BoxConstraints(
-                            maxWidth: MediaQuery.of(context).size.width * 0.8),
-                        child: ButtonGroup(
-                          formKey: _formKey,
-                          usernameController: _usernameController,
-                          emailController: _emailController,
-                          passwordController: _passwordController,
-                        ),
-                      ))),
-              Expanded(flex: 4, child: Row())
-            ],
-          ),
-        ),
+                  child: Row(),
+                ),
+                Expanded(
+                    flex: 6,
+                    child: Align(
+                        alignment: Alignment.center,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 16.0),
+                          constraints: BoxConstraints(
+                              maxWidth: MediaQuery.of(context).size.width * 0.8),
+                          child: RegisterForm(
+                              userNameController: _usernameController,
+                              emailController: _emailController,
+                              passwordController: _passwordController),
+                        ))),
+                Expanded(
+                    flex: 2,
+                    child: Align(
+                        alignment: Alignment.center,
+                        child: Container(
+                          padding: EdgeInsets.symmetric(horizontal: 16.0),
+                          constraints: BoxConstraints(
+                              maxWidth: MediaQuery.of(context).size.width * 0.8),
+                          child: ButtonGroup(
+                            formKey: _formKey,
+                            usernameController: _usernameController,
+                            emailController: _emailController,
+                            passwordController: _passwordController,
+                          ),
+                        ))),
+                Expanded(flex: 4, child: Row())
+              ],
+            ),
+          )
+        ],
       ),
     );
   }
