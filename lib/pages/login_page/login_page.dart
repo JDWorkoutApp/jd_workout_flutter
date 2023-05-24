@@ -53,97 +53,101 @@ class _LoginPageState extends State<LoginPage> {
               )),
         ),
         Container(
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: [
-              const Expanded(
-                  flex: 5,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: LogoText(),
-                  )),
-              Expanded(
-                  flex: 2,
-                  child: Align(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                const Expanded(
+                    flex: 5,
+                    child: Align(
                       alignment: Alignment.center,
-                      child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 16.0),
-                          constraints: BoxConstraints(
-                              maxWidth:
-                                  MediaQuery.of(context).size.width * 0.8),
-                          child: SocialLoginButton(
-                            text: 'SIGN IN WITH GOOGLE',
-                            buttonType: SocialLoginButtonType.google,
-                            onPressed: () {
-                              LoadingHelper(context).startLoading();
-                              GoogleAuth.signInWithGoogle().then((UserCredential value) {
-                                final String googleAccessToken = value.credential?.accessToken ?? '';
-                                AuthApi.googleLogin(googleAccessToken).then((value) {
-                                  AuthHelper.storeLogin(value['jwtToken']);
+                      child: LogoText(),
+                    )),
+                Expanded(
+                    flex: 2,
+                    child: Align(
+                        alignment: Alignment.center,
+                        child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 16.0),
+                            constraints: BoxConstraints(
+                                maxWidth:
+                                    MediaQuery.of(context).size.width * 0.8),
+                            child: SocialLoginButton(
+                              text: 'SIGN IN WITH GOOGLE',
+                              buttonType: SocialLoginButtonType.google,
+                              onPressed: () {
+                                LoadingHelper(context).startLoading();
+                                GoogleAuth.signInWithGoogle()
+                                    .then((UserCredential value) {
+                                  final String googleAccessToken =
+                                      value.credential?.accessToken ?? '';
+                                  AuthApi.googleLogin(googleAccessToken)
+                                      .then((value) {
+                                    AuthHelper.storeLogin(value['jwtToken']);
 
-                                  ToastHelper.success("Login success");
+                                    ToastHelper.success("Login success");
 
-                                  final navigator = Navigator.of(context);
-                                  navigator.pushReplacement(
-                                    MaterialPageRoute(
-                                        builder: (context) => HomePage(
-                                            title: "from login page")),
-                                  );
+                                    final navigator = Navigator.of(context);
+                                    navigator.pushReplacement(
+                                      MaterialPageRoute(
+                                          builder: (context) => HomePage(
+                                              title: "from login page")),
+                                    );
+                                  }).catchError((error) {
+                                    LoadingHelper(context).stopLoading();
+                                    ToastHelper.fail(
+                                        "Fail to login with google");
+                                  });
                                 }).catchError((error) {
                                   LoadingHelper(context).stopLoading();
-                                  ToastHelper.fail("Fail to login with google");
                                 });
-                              }).catchError((error) {
-                                LoadingHelper(context).stopLoading();
-                              });
-                            },
-                            mode: SocialLoginButtonMode.single,
-                          )))),
-              Expanded(
-                  flex: 2,
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: Text(
-                      'OR',
-                      style: TextStyle(
-                        color: Theme.of(context).secondaryHeaderColor,
+                              },
+                              mode: SocialLoginButtonMode.single,
+                            )))),
+                Expanded(
+                    flex: 2,
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Text(
+                        'OR',
+                        style: TextStyle(
+                          color: Theme.of(context).secondaryHeaderColor,
+                        ),
                       ),
-                    ),
-                  )),
-              Expanded(
-                  flex: 4,
-                  child: Align(
-                      alignment: Alignment.center,
-                      child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 16.0),
-                        constraints: BoxConstraints(
-                            maxWidth: MediaQuery.of(context).size.width * 0.8),
-                        child: LoginForm(
-                            emailController: _emailController,
-                            passwordController: _passwordController),
-                      ))),
-              Expanded(
-                  flex: 2,
-                  child: Align(
-                      alignment: Alignment.center,
-                      child: Container(
+                    )),
+                Expanded(
+                    flex: 4,
+                    child: Align(
+                        alignment: Alignment.center,
+                        child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 16.0),
                           constraints: BoxConstraints(
                               maxWidth:
                                   MediaQuery.of(context).size.width * 0.8),
-                          child: ButtonGroup(
-                            formKey: _formKey,
-                            emailController: _emailController,
-                            passwordController: _passwordController,
-                          )))),
-              Expanded(flex: 4, child: Row())
-            ],
+                          child: LoginForm(
+                              emailController: _emailController,
+                              passwordController: _passwordController),
+                        ))),
+                Expanded(
+                    flex: 2,
+                    child: Align(
+                        alignment: Alignment.center,
+                        child: Container(
+                            padding: EdgeInsets.symmetric(horizontal: 16.0),
+                            constraints: BoxConstraints(
+                                maxWidth:
+                                    MediaQuery.of(context).size.width * 0.8),
+                            child: ButtonGroup(
+                              formKey: _formKey,
+                              emailController: _emailController,
+                              passwordController: _passwordController,
+                            )))),
+                Expanded(flex: 4, child: Row())
+              ],
+            ),
           ),
-        ),
-      )
-          ]
-      ),
+        )
+      ]),
     );
   }
 }
