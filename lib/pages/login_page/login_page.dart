@@ -1,3 +1,4 @@
+import 'package:animated_glitch/animated_glitch.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:social_login_buttons/social_login_buttons.dart';
@@ -23,6 +24,11 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _animateController = AnimatedGlitchController(
+    frequency: const Duration(milliseconds: 200),
+    level: 1.2,
+    distortionShift: const DistortionShift(count: 3),
+  );
 
   @override
   void dispose() {
@@ -37,13 +43,16 @@ class _LoginPageState extends State<LoginPage> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Container(
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/login-background.png"),
-            fit: BoxFit.cover,
-          ),
+      body: Stack(children: [
+        Positioned.fill(
+          child: AnimatedGlitch(
+              controller: _animateController,
+              child: Image.asset(
+                'assets/images/login-background.png',
+                fit: BoxFit.cover,
+              )),
         ),
+        Container(
         child: Form(
           key: _formKey,
           child: Column(
@@ -132,6 +141,8 @@ class _LoginPageState extends State<LoginPage> {
             ],
           ),
         ),
+      )
+          ]
       ),
     );
   }
