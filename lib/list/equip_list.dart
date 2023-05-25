@@ -1,8 +1,8 @@
+import 'package:animated_glitch/animated_glitch.dart';
 import 'package:flutter/material.dart';
+import 'package:vizor/components/atoms/vizor_button.dart';
+import 'package:vizor/components/atoms/vizor_frame.dart';
 import 'package:workout_app/api/equip_api.dart';
-import 'package:workout_app/dialog/equip_dialog.dart';
-import 'package:workout_app/dialog/equip_weights_dialog.dart';
-import 'package:workout_app/models/equip_model.dart';
 import 'package:workout_app/utils/toast_helper.dart';
 
 import '../models/equip_summary_model.dart';
@@ -19,6 +19,11 @@ class EquipListState extends State<EquipList> {
   List<EquipSummaryModel> _items = [];
   int _page = 1;
   bool _isLoading = false;
+  final _equipImageList = [
+    'assets/images/back-training.jpg',
+    'assets/images/leg-training.png',
+    'assets/images/chest-training.png',
+  ];
 
   @override
   void initState() {
@@ -83,6 +88,7 @@ class EquipListState extends State<EquipList> {
             return _buildProgressIndicator();
           } else {
             final item = _items[index];
+            final equipImageIndex = index % _equipImageList.length;
             return Dismissible(
               key: Key(item.equip.id.toString()),
               confirmDismiss: (DismissDirection direction) async {
@@ -127,63 +133,73 @@ class EquipListState extends State<EquipList> {
                   child: Icon(Icons.delete, color: Colors.white),
                 ),
               ),
-              child: ListTile(
-                title: Text(item.equip.name),
-                subtitle: Text(item.equip.note),
-                trailing: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    IconButton(
-                      icon: Icon(Icons.add),
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext context) => EquipWeightDialog(weights: item.equip.weights)
-                        ).then((result) {
-                          if (result != false) {
-                            EquipApi.putWeight(item.equip.id, result)
-                                .then((apiResult) {
-                              if (apiResult) {
-                                ToastHelper.success("Added");
-                              } else {
-                                ToastHelper.fail("Failed to add");
-                              }
-                            });
-                          }
-                        });
-                      },
+              child: Center(
+                  child: Container(
+                height: 200,
+                padding: new EdgeInsets.all(10.0),
+                child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
                     ),
-                    IconButton(
-                  icon: Icon(Icons.edit),
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return EquipDialog(name: item.equip.name, note: item.equip.note);
-                      },
-                    ).then((result) {
-                      if (result != false) {
-                        EquipApi.patch(item.equip.id, result['name'], result['note'])
-                            .then((apiResult) {
-                          if (apiResult) {
-                            ToastHelper.success("Updated");
-                          } else {
-                            ToastHelper.fail("Failed to update");
-                          }
-                        });
-                      }
-                    });
-                  })
-                ],
-                ),
-              ),
+                    color: Theme.of(context).primaryColorLight,
+                    elevation: 10,
+                    child: Row(
+                      children: [
+                        Expanded(
+                            flex: 2,
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 20.0),
+                              child: VizorFrame(
+                                  child: Container(
+                                height: 100,
+                                child: AnimatedGlitch(
+                                    controller: AnimatedGlitchController(
+                                      chance: 35,
+                                      frequency:
+                                          const Duration(milliseconds: 200),
+                                      level: 1.2,
+                                      distortionShift:
+                                          const DistortionShift(count: 3),
+                                    ),
+                                    child: Image.asset(
+                                      _equipImageList[equipImageIndex],
+                                      fit: BoxFit.cover,
+                                    )),
+                              )),
+                            )),
+                        Expanded(
+                          flex: 8,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              ListTile(
+                                title: Text(item.equip.name,
+                                    style: TextStyle(fontSize: 30.0)),
+                                subtitle: Text(item.equip.note,
+                                    style: TextStyle(fontSize: 18.0)),
+                              ),
+                              ButtonBar(
+                                children: <Widget>[
+                                  VizorButton(
+                                      label: Text("EDIT"), onPressed: () {}),
+                                  VizorButton(
+                                      label: Text("WEIGHT"), onPressed: () {}),
+                                  VizorButton(
+                                      label: Text("DELETE"), onPressed: () {}),
+                                ],
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
+                    )),
+              )),
             );
           }
         },
       ),
     );
   }
-
 
   Widget _buildProgressIndicator() {
     return Padding(

@@ -17,6 +17,25 @@ class _EquipPageState extends State<EquipPage> {
     GlobalKey<EquipListState> equipListState = GlobalKey();
 
     return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 120,
+        elevation: 0,
+        title: Stack(
+          children: [
+            Text(
+              "EQUIP MANAGEMENT",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 30,
+                color: Theme.of(context).shadowColor,
+                fontWeight: FontWeight.bold,
+              ),
+            )
+          ],
+        ),
+        centerTitle: true,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      ),
       body: EquipList(key: equipListState,), // add the InfiniteList widget here
       floatingActionButton: FloatingActionButton(
         onPressed: () {
