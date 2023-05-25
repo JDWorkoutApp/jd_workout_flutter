@@ -35,6 +35,7 @@ Finally, you should be able to open google OAuth in login page.
 * add `--no-sound-null-safety` option
   * for IntelliJ IDEA Ultimate, click `three-dot-icon` beside `run` button,
     then click `Edit`, then add `--no-sound-null-safety` in `Additional run args` field
+* Flutter version: `3.7.12`
 
 ### Flutter install package
 
