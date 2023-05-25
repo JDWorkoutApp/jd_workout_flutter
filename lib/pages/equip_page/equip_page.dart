@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:vizor/components/atoms/vizor_frame.dart';
 import 'package:workout_app/api/equip_api.dart';
 import 'package:workout_app/list/equip_list.dart';
+import 'package:workout_app/list/equip_list_sliver.dart';
 import 'package:workout_app/utils/toast_helper.dart';
 import '../../dialog/equip_dialog.dart';
 
@@ -17,26 +20,86 @@ class _EquipPageState extends State<EquipPage> {
     GlobalKey<EquipListState> equipListState = GlobalKey();
 
     return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 120,
-        elevation: 0,
-        title: Stack(
-          children: [
-            Text(
-              "EQUIP MANAGEMENT",
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 30,
-                color: Theme.of(context).shadowColor,
-                fontWeight: FontWeight.bold,
+      body: CustomScrollView(
+        slivers: [
+          SliverAppBar(
+            toolbarHeight:0,
+            collapsedHeight: 0,
+            centerTitle: true,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            expandedHeight: 100,
+            floating: false,
+            pinned: true,
+            snap: false,
+            flexibleSpace: Container(
+              child: VizorFrame(
+                child: SizedBox(
+                  height: 100,
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: Column(
+                      children: const [
+                        Expanded(
+                            child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "EQUIP MANAGEMENT",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: Color(0xFF61F7D4),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        )),
+                        Expanded(
+                            child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "AMOUNT: 20",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Color(0xFF61F7D4),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        )),
+                        Expanded(
+                            child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "UPDATE TIME: 2022-05-05 12:00:00",
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Color(0xFF61F7D4),
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        )),
+                      ],
+                    ),
+                  ),
+                ),
               ),
-            )
-          ],
-        ),
-        centerTitle: true,
-        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            ),
+            // flexibleSpace: FlexibleSpaceBar(
+            //   background: Container(
+            //     decoration: BoxDecoration(
+            //       image: DecorationImage(
+            //         image: AssetImage("assets/images/equipment.png"),
+            //         fit: BoxFit.cover,
+            //       ),
+            //     ),
+            //   ),
+            // )
+          ),
+          EquipListSliver(
+            key: equipListState,
+          )
+        ],
       ),
-      body: EquipList(key: equipListState,), // add the InfiniteList widget here
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           showDialog(
