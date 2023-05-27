@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vizor/components/atoms/vizor_frame.dart';
+import 'package:workout_app/dialog/choose_equip_dialog.dart';
 import 'package:workout_app/list/exercise_list_sliver.dart';
 import 'package:workout_app/models/equip_summary_model.dart';
 import '../../models/equip_model.dart';
@@ -83,7 +84,25 @@ class _ExercisePageState extends State<ExercisePage> {
                             )),
                             Expanded(
                               flex: 7,
-                                child: TextFormField(
+                                child: GestureDetector(
+                                    onTap: () {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return ChooseEquipDialog();
+                                        },
+                                      ).then((result) {
+                                        setState(() {
+                                          selectedEquip =
+                                              result as EquipSummaryModel;
+
+                                          equipController.text = selectedEquip.equip.name;
+                                        });
+                                      });
+                                    },
+                                  child: AbsorbPointer(
+                                    absorbing: true,
+                                    child: TextFormField(
                                   style: TextStyle(fontSize: 12),
                               controller: equipController,
                               cursorColor: Colors.white,
@@ -94,7 +113,9 @@ class _ExercisePageState extends State<ExercisePage> {
 
                                 return null;
                               },
-                            )),
+                            ),
+                                  )
+                                )),
                           ],
                         ),
                       ),
