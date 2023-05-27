@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:vizor/components/atoms/vizor_frame.dart';
@@ -42,6 +44,14 @@ class _ExercisePageState extends State<ExercisePage> {
     equip: EquipModel(id: 0, name: 'Equip select', note: '-'),
   );
 
+  final _equipImageList = [
+    'assets/images/back-training.jpg',
+    'assets/images/leg-training.png',
+    'assets/images/chest-training.png',
+  ];
+
+  int currentEquipImageIndex = Random().nextInt(3);
+
   @override
   Widget build(BuildContext context) {
     // Color borderColor = Color(0xFF27CEED);
@@ -65,7 +75,14 @@ class _ExercisePageState extends State<ExercisePage> {
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: darkColor,
-                  // borderRadius: BorderRadius.circular(20),
+                  image: DecorationImage(
+                    image: AssetImage(_equipImageList[currentEquipImageIndex]),
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                      Colors.black.withOpacity(0.8),
+                      BlendMode.darken,
+                    ),
+                  ),
                 ),
                 child: Form(
                   key: _formKey,
