@@ -6,7 +6,9 @@ import 'package:vizor/components/atoms/vizor_frame.dart';
 import 'package:workout_app/dialog/choose_equip_dialog.dart';
 import 'package:workout_app/list/exercise_list_sliver.dart';
 import 'package:workout_app/models/equip_summary_model.dart';
+import '../../api/training_record_api.dart';
 import '../../models/equip_model.dart';
+import '../../utils/toast_helper.dart';
 
 final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
   onPrimary: Colors.black87,
@@ -220,22 +222,47 @@ class _ExercisePageState extends State<ExercisePage> {
                           ),
                           Expanded(
                             flex: 5,
-                            child: Container(
-                              height: 50,
-                              padding: EdgeInsets.all(10),
-                              child: VizorFrame(
-                                color: Color(0xFF093B46),
-                                lineColor: Color(0xFF05C3CF),
-                                child: Align(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      'SUBMIT',
-                                      style: TextStyle(
-                                        color: Color(0xFF05C3CF),
+                            child: GestureDetector(
+                              onTap: () {
+                                if (_formKey.currentState!.validate()) {
+                                  if (selectedEquip.equip.id == 0) {
+                                    ToastHelper.fail("Please select equipment");
+                                    return;
+                                  }
+
+                                  TrainingRecordApi.store(
+                                          selectedEquip.equip.id,
+                                          double.tryParse(
+                                                  weightController.text) ??
+                                              0,
+                                          double.tryParse(
+                                                  repsController.text) ??
+                                              0,
+                                          '')
+                                      .then((value) {
+                                    ToastHelper.success('success');
+                                  }).catchError((error) {
+                                    ToastHelper.fail('fail');
+                                  });
+                                }
+                              },
+                              child: Container(
+                                height: 50,
+                                padding: EdgeInsets.all(10),
+                                child: VizorFrame(
+                                  color: Color(0xFF093B46),
+                                  lineColor: Color(0xFF05C3CF),
+                                  child: Align(
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        'SUBMIT',
+                                        style: TextStyle(
+                                          color: Color(0xFF05C3CF),
                                         fontSize: 15,
                                       ),
                                     )),
                               ),
+                            ),
                             ),
                           ),
                         ],
