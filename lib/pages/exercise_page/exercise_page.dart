@@ -53,6 +53,8 @@ class _ExercisePageState extends State<ExercisePage> {
   ];
 
   int currentEquipImageIndex = Random().nextInt(3);
+  GlobalKey<ExerciseListSliverState> exerciseListSliverKey =
+      GlobalKey<ExerciseListSliverState>();
 
   @override
   Widget build(BuildContext context) {
@@ -241,6 +243,8 @@ class _ExercisePageState extends State<ExercisePage> {
                                           '')
                                       .then((value) {
                                     ToastHelper.success('success');
+                                    exerciseListSliverKey.currentState!
+                                        .refreshList();
                                   }).catchError((error) {
                                     ToastHelper.fail('fail');
                                   });
@@ -333,7 +337,7 @@ class _ExercisePageState extends State<ExercisePage> {
           pinned: true,
           snap: false,
         ),
-        ExerciseListSliver()
+        ExerciseListSliver(key: exerciseListSliverKey)
       ],
     ));
   }

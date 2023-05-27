@@ -9,10 +9,10 @@ class ExerciseListSliver extends StatefulWidget {
   const ExerciseListSliver({Key? key}) : super(key: key);
 
   @override
-  _ExerciseListSliverState createState() => _ExerciseListSliverState();
+  ExerciseListSliverState createState() => ExerciseListSliverState();
 }
 
-class _ExerciseListSliverState extends State<ExerciseListSliver> {
+class ExerciseListSliverState extends State<ExerciseListSliver> {
   final ScrollController _scrollController = ScrollController();
   List<TrainingModel> _items = [];
   int _page = 1;
@@ -70,6 +70,16 @@ class _ExerciseListSliverState extends State<ExerciseListSliver> {
         dateTime.minute.toString().padLeft(2, '0');
   }
 
+  refreshList() {
+    setState(() {
+      _items = [];
+      _page = 1;
+      _isLoading = false;
+    });
+
+    _loadMoreItems();
+  }
+  
   @override
   Widget build(BuildContext context) {
     return SliverList(
