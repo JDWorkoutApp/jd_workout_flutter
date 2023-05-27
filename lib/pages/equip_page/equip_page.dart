@@ -23,6 +23,14 @@ class _EquipPageState extends State<EquipPage> {
         slivers: [
           SliverAppBar(
             toolbarHeight:0,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            expandedHeight: 25,
+            floating: false,
+            pinned: true,
+            snap: false,
+          ),
+          SliverAppBar(
+            toolbarHeight:0,
             collapsedHeight: 0,
             centerTitle: true,
             backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -35,6 +43,7 @@ class _EquipPageState extends State<EquipPage> {
                 child: SizedBox(
                   height: 100,
                   child: Padding(
+                    // extra 10 for top, others for 20
                     padding: const EdgeInsets.all(20.0),
                     child: Column(
                       children: const [
