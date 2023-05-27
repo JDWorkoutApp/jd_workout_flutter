@@ -1,11 +1,8 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:workout_app/api/training_record_api.dart';
-import 'package:workout_app/dialog/choose_equip_dialog.dart';
+import 'package:vizor/components/atoms/vizor_frame.dart';
 import 'package:workout_app/list/exercise_list_sliver.dart';
 import 'package:workout_app/models/equip_summary_model.dart';
-import 'package:workout_app/utils/toast_helper.dart';
 import '../../models/equip_model.dart';
 
 final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
@@ -20,6 +17,7 @@ final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
 
 class ExercisePage extends StatefulWidget {
   const ExercisePage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
@@ -37,20 +35,233 @@ class _ExercisePageState extends State<ExercisePage> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController weightController = TextEditingController();
   TextEditingController repsController = TextEditingController();
+  TextEditingController equipController = TextEditingController();
 
   EquipSummaryModel selectedEquip = EquipSummaryModel(
-      equip: EquipModel(
-        id: 0,
-        name: 'Equip select',
-        note: '-'
-      ),
+    equip: EquipModel(id: 0, name: 'Equip select', note: '-'),
   );
 
   @override
   Widget build(BuildContext context) {
+    // Color borderColor = Color(0xFF27CEED);
+    Color borderColor = Theme.of(context).secondaryHeaderColor;
+    Color darkColor = Color(0xFF1D0E1A);
+    Color appBarBackgroundColor = Theme.of(context).primaryColorLight;
+
     return Scaffold(
         body: CustomScrollView(
-      slivers: [ExerciseListSliver()],
+      slivers: [
+        SliverAppBar(
+          toolbarHeight: 280,
+          backgroundColor: appBarBackgroundColor,
+          title: VizorFrame(
+            lineColor: borderColor,
+            lineStroke: 3.0,
+            cornerStroke: 7.0,
+            cornerLengthRatio: 0.1,
+            child: Container(
+                height: 230,
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: darkColor,
+                  // borderRadius: BorderRadius.circular(20),
+                ),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Expanded(
+                        child: Row(
+                          children: [
+                            Expanded(flex: 3,child: Text('EQUIP',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold
+                            )
+                            )),
+                            Expanded(
+                              flex: 7,
+                                child: TextFormField(
+                                  style: TextStyle(fontSize: 12),
+                              controller: equipController,
+                              cursorColor: Colors.white,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please select equip';
+                                }
+
+                                return null;
+                              },
+                            )),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Row(
+                          children: [
+                            Expanded(flex: 3,child: Text('WEIGHT', style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold
+                            ))),
+                            Expanded(
+                              flex: 7,
+                                child: TextFormField(
+                              style: TextStyle(fontSize: 12),
+                              controller: weightController,
+                              cursorColor: Colors.white,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter weight';
+                                }
+
+                                return null;
+                              },
+                            )),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: Row(
+                          children: [
+                            Expanded(flex: 3,child: Text('REPS', style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold
+                            ))),
+                            Expanded(
+                              flex: 7,
+                                child: TextFormField(
+                                  style: TextStyle(fontSize: 12),
+                              controller: repsController,
+                              cursorColor: Colors.white,
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Please enter weight';
+                                }
+
+                                return null;
+                              },
+                            )),
+                          ],
+                        ),
+                      ),
+                      Expanded(child: Container(height: 20,)),
+                      Expanded(
+                          child: Row(
+                        children: [
+                          Expanded(
+                            flex: 5,
+                            child: Container(
+                              height: 50,
+                              padding: EdgeInsets.all(10),
+                              child: VizorFrame(
+                                color: Color(0xFF7D0F2A),
+                                lineColor: Color(0xFFEA3733),
+                                child: Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      'RESET',
+                                      style: TextStyle(
+                                        color: Color(0xFFFBFFFE),
+                                        fontSize: 15,
+                                      ),
+                                    )),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 5,
+                            child: Container(
+                              height: 50,
+                              padding: EdgeInsets.all(10),
+                              child: VizorFrame(
+                                color: Color(0xFF093B46),
+                                lineColor: Color(0xFF05C3CF),
+                                child: Align(
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      'SUBMIT',
+                                      style: TextStyle(
+                                        color: Color(0xFF05C3CF),
+                                        fontSize: 15,
+                                      ),
+                                    )),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )),
+                    ],
+                  ),
+                )),
+          ),
+          floating: false,
+          pinned: true,
+          snap: false,
+        ),
+        SliverAppBar(
+          backgroundColor: appBarBackgroundColor,
+          forceElevated: true,
+          elevation: 0,
+          toolbarHeight: 30,
+          flexibleSpace: FlexibleSpaceBar(
+            background: Stack(
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 10),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Color(0xFF230A24),
+                      ),
+                    ),
+                  ),
+                ),
+                Positioned(
+                  top: -5,
+                  left: 0,
+                  right: 0,
+                  child: Container(
+                    alignment: Alignment.center,
+                    padding: EdgeInsets.symmetric(vertical: 5),
+                    color: Colors.transparent,
+                    child: VizorFrame(
+                        gradient: LinearGradient(
+                            colors: [Color(0xFF7D34B9), Color(0xFF091752)]),
+                        lineStroke: 1.5,
+                        cornerStroke: 4.5,
+                        lineColor: Color(0xFFFF40E8),
+                        child: Container(
+                          height: 20,
+                          width: 100,
+                          child: Center(
+                              child: Text(
+                            'RECORDS',
+                            style: TextStyle(
+                              fontSize: 13,
+                              fontWeight: FontWeight.bold,
+                              color: Color(0xFF5CC5FF),
+                            ),
+                          )),
+                        )),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          floating: false,
+          pinned: true,
+          snap: false,
+        ),
+        ExerciseListSliver()
+      ],
     ));
   }
 }
