@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:vizor/components/atoms/vizor_button.dart';
 import 'package:vizor/components/atoms/vizor_frame.dart';
 import 'package:workout_app/api/equip_api.dart';
+import 'package:workout_app/dialog/equip_dialog.dart';
 import 'package:workout_app/utils/toast_helper.dart';
 
 import '../models/equip_summary_model.dart';
@@ -197,7 +198,36 @@ class EquipListSliverState extends State<EquipListSliver> {
                               ButtonBar(
                                 children: <Widget>[
                                   VizorButton(
-                                      label: Text("EDIT"), onPressed: () {}),
+                                      label: Text("EDIT"),
+                                      onPressed: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return EquipDialog(
+                                              name: item.equip.name,
+                                              note: item.equip.note,
+                                            );
+                                          },
+                                        ).then((result) {
+                                          if (result != false) {
+                                            EquipApi.patch(
+                                                    item.equip.id,
+                                                    result['name'],
+                                                    result['note'])
+                                                .then((apiResult) {
+                                              if (apiResult) {
+                                                ToastHelper.success(
+                                                    "Equip updated");
+
+                                                resetList();
+                                              } else {
+                                                ToastHelper.fail(
+                                                    "Failed to update equip");
+                                              }
+                                            });
+                                          }
+                                        });
+                                      }),
                                   VizorButton(
                                       label: Text("WEIGHT"), onPressed: () {}),
                                   VizorButton(

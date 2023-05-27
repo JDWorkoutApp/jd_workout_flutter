@@ -21,6 +21,13 @@ class EquipApi {
   }
 
   static Future<bool> patch(int id, String name, String note) async {
+    final response = await ApiClient().patch(ApiClient.getUri('/equip/$id'),
+        body: {'name': name, 'note': note});
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed update');
+    }
+
     return true;
   }
 
