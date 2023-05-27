@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:vizor/components/atoms/vizor_frame.dart';
 import 'package:workout_app/api/training_record_api.dart';
-import 'package:workout_app/models/training_model.dart';
+import 'package:workout_app/models/training_summary_model.dart';
 
 class ExerciseListSliver extends StatefulWidget {
   const ExerciseListSliver({Key? key}) : super(key: key);
@@ -14,7 +14,7 @@ class ExerciseListSliver extends StatefulWidget {
 
 class ExerciseListSliverState extends State<ExerciseListSliver> {
   final ScrollController _scrollController = ScrollController();
-  List<TrainingModel> _items = [];
+  List<TrainingSummaryModel> _items = [];
   int _page = 1;
   bool _isLoading = false;
   final _equipImageList = [
@@ -88,7 +88,7 @@ class ExerciseListSliverState extends State<ExerciseListSliver> {
           if (index == _items.length) {
             return _buildProgressIndicator();
           } else {
-            TrainingModel training = _items[index];
+            TrainingSummaryModel training = _items[index];
 
             return Dismissible(
               key: Key(index.toString()),

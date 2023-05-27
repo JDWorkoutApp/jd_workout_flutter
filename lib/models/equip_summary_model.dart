@@ -1,4 +1,4 @@
-import 'package:workout_app/models/training_model.dart';
+import 'package:workout_app/models/training_summary_model.dart';
 
 import 'equip_model.dart';
 import 'max_volume_record_model.dart';

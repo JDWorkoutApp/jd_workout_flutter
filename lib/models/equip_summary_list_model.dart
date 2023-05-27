@@ -1,5 +1,5 @@
 import 'package:workout_app/models/equip_summary_model.dart';
-import 'package:workout_app/models/training_model.dart';
+import 'package:workout_app/models/training_summary_model.dart';
 
 class EquipSummaryListModel {
   final int total;

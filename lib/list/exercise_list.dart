@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:workout_app/api/training_record_api.dart';
-import 'package:workout_app/models/training_model.dart';
+import 'package:workout_app/models/training_summary_model.dart';
 
 class ExerciseList extends StatefulWidget {
   const ExerciseList({Key? key}) : super(key: key);
@@ -11,7 +11,7 @@ class ExerciseList extends StatefulWidget {
 
 class _ExerciseListState extends State<ExerciseList> {
   final ScrollController _scrollController = ScrollController();
-  List<TrainingModel> _items = [];
+  List<TrainingSummaryModel> _items = [];
   int _page = 1;
   bool _isLoading = false;
 
