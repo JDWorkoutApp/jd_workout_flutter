@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:vizor/components/atoms/vizor_frame.dart';
 import 'package:workout_app/api/equip_api.dart';
-import 'package:workout_app/list/equip_list.dart';
 import 'package:workout_app/list/equip_list_sliver.dart';
 import 'package:workout_app/utils/toast_helper.dart';
 import '../../dialog/equip_dialog.dart';
@@ -17,7 +16,7 @@ class EquipPage extends StatefulWidget {
 class _EquipPageState extends State<EquipPage> {
   @override
   Widget build(BuildContext context) {
-    GlobalKey<EquipListState> equipListState = GlobalKey();
+    GlobalKey<EquipListSliverState> equipListState = GlobalKey();
 
     return Scaffold(
       body: CustomScrollView(
