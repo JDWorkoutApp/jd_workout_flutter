@@ -44,3 +44,5 @@ Finally, you should be able to open google OAuth in login page.
 ## Build
 
 ` flutter build apk --release`
+
+`flutter build apk --release --no-sound-null-safety`
