@@ -109,6 +109,9 @@ class _ExercisePageState extends State<ExercisePage> {
                             Expanded(
                               flex: 7,
                                 child: TextFormField(
+                              inputFormatters: [
+                                    FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))
+                              ],
                               style: TextStyle(fontSize: 12),
                               controller: weightController,
                               cursorColor: Colors.white,
@@ -134,6 +137,9 @@ class _ExercisePageState extends State<ExercisePage> {
                             Expanded(
                               flex: 7,
                                 child: TextFormField(
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))
+                                  ],
                                   style: TextStyle(fontSize: 12),
                               controller: repsController,
                               cursorColor: Colors.white,
