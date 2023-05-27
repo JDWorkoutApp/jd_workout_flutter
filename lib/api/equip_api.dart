@@ -25,6 +25,12 @@ class EquipApi {
   }
 
   static Future<bool> delete(int id) async {
+    final response = await ApiClient().delete(ApiClient.getUri('/equip/$id'));
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed delete');
+    }
+
     return true;
   }
 

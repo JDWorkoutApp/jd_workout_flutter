@@ -77,6 +77,41 @@ class EquipListSliverState extends State<EquipListSliver> {
     });
   }
 
+  void showDeleteAlertDialog(BuildContext context, item, int index) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Delete'),
+        content: Text('Make sure to delete?'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () {
+              EquipApi.delete(item.equip.id).then((value) {
+                if (value) {
+                  setState(() {
+                    _items.removeAt(index);
+                    ToastHelper.success("Delete success");
+                  });
+                } else {
+                  ToastHelper.fail("Delete fail");
+                }
+              });
+
+              Navigator.of(context).pop(true);
+            },
+            child: Text('Confirm'),
+          ),
+        ],
+      );
+    },
+  );
+}
+
   @override
   Widget build(BuildContext context) {
     return SliverFixedExtentList(
@@ -91,25 +126,7 @@ class EquipListSliverState extends State<EquipListSliver> {
             return Dismissible(
               key: Key(item.equip.id.toString()),
               confirmDismiss: (DismissDirection direction) async {
-                return await showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: Text('Delte'),
-                      content: Text('Make sure to delete?'),
-                      actions: <Widget>[
-                        TextButton(
-                          onPressed: () => Navigator.of(context).pop(false),
-                          child: Text('cancel'),
-                        ),
-                        TextButton(
-                          onPressed: () => Navigator.of(context).pop(true),
-                          child: Text('confirm'),
-                        ),
-                      ],
-                    );
-                  },
-                );
+                showDeleteAlertDialog(context, item, index);
               },
               onDismissed: (direction) {
                 EquipApi.delete(item.equip.id).then((value) => {
@@ -184,7 +201,9 @@ class EquipListSliverState extends State<EquipListSliver> {
                                   VizorButton(
                                       label: Text("WEIGHT"), onPressed: () {}),
                                   VizorButton(
-                                      label: Text("DELETE"), onPressed: () {}),
+                                      label: Text("DELETE"), onPressed: () {
+                                        showDeleteAlertDialog(context, item, index);
+                                  }),
                                 ],
                               ),
                             ],
