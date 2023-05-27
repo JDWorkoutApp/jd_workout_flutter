@@ -83,16 +83,6 @@ class _EquipPageState extends State<EquipPage> {
                 ),
               ),
             ),
-            // flexibleSpace: FlexibleSpaceBar(
-            //   background: Container(
-            //     decoration: BoxDecoration(
-            //       image: DecorationImage(
-            //         image: AssetImage("assets/images/equipment.png"),
-            //         fit: BoxFit.cover,
-            //       ),
-            //     ),
-            //   ),
-            // )
           ),
           EquipListSliver(
             key: equipListState,
