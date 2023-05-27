@@ -34,8 +34,8 @@ class TrainingRecordApi {
     return true;
   }
 
-  static Future<TrainingRecordListModel> get(int page) async {
-    final response = await ApiClient().get(ApiClient.getUri('/record/?perPage=30&currentPage=$page'));
+  static Future<TrainingRecordListModel> getDaySummaryList(int page) async {
+    final response = await ApiClient().get(ApiClient.getUri('/record/day-summary?perPage=30&currentPage=$page'));
     var body = response.body;
     Map<String, dynamic> json = jsonDecode(body);
 

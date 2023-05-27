@@ -54,7 +54,7 @@ class ExerciseListSliverState extends State<ExerciseListSliver> {
       _isLoading = true;
     });
 
-    var result = await TrainingRecordApi.get(_page);
+    var result = await TrainingRecordApi.getDaySummaryList(_page);
 
     setState(() {
       _items.addAll(result.trainings);
