@@ -114,6 +114,8 @@ class _ExercisePageState extends State<ExercisePage> {
                                               result as EquipSummaryModel;
 
                                           equipController.text = selectedEquip.equip.name;
+
+                                          currentEquipImageIndex = Random().nextInt(3);
                                         });
                                       });
                                     },
