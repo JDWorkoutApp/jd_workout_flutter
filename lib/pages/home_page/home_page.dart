@@ -1,35 +1,49 @@
 import 'package:flutter/material.dart';
-import 'package:workout_app/utils/app_version_checker.dart';
-import 'package:workout_app/pages/equip_page/equip_page.dart';
-import 'package:workout_app/pages/setting_page/setting_page.dart';
-import 'package:workout_app/pages/exercise_page/exercise_page.dart';
-
 import '../record_page/training_record_page.dart';
+import '../pages/equip_page/equip_page.dart';
+import '../pages/setting_page/setting_page.dart';
+import '../pages/exercise_page/exercise_page.dart';
 
 class HomePage extends StatefulWidget {
-  HomePage({super.key, required this.title, this.checkAppVersion = false});
+  HomePage({Key? key, required this.title, this.checkAppVersion = false}) : super(key: key);
+
   final String title;
-  bool checkAppVersion = true;
+  final bool checkAppVersion;
 
   @override
   State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
-  int currentPage = 0;
-  List<Widget> pages = const <Widget>[
+  final List<Widget> pages = const <Widget>[
     ExercisePage(),
     TrainingRecordPage(),
     EquipPage(),
     SettingPage(),
   ];
 
+  int currentPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.checkAppVersion) {
+      checkAppVersion();
+    }
+  }
+
+  void checkAppVersion() {
+    // Implement the logic to check the app version here
+  }
+
+  void handlePageTap(int value) {
+    setState(() {
+      currentPage = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    if (widget.checkAppVersion) {
-      AppVersionChecker.instance.checkAppVersion(context);
-    }
-
     return Scaffold(
       body: pages[currentPage],
       bottomNavigationBar: BottomNavigationBar(
@@ -38,11 +52,7 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Theme.of(context).primaryColorLight,
         type: BottomNavigationBarType.fixed,
         currentIndex: currentPage,
-        onTap: (value) {
-          setState(() {
-            currentPage = value;
-          });
-        },
+        onTap: handlePageTap,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.accessibility_new),
