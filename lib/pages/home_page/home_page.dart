@@ -4,6 +4,8 @@ import 'package:workout_app/pages/equip_page/equip_page.dart';
 import 'package:workout_app/pages/setting_page/setting_page.dart';
 import 'package:workout_app/pages/exercise_page/exercise_page.dart';
 
+import '../record_page/training_record_page.dart';
+
 class HomePage extends StatefulWidget {
   HomePage({super.key, required this.title, this.checkAppVersion = false});
   final String title;
@@ -14,9 +16,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int currentPage = 0;
+  int currentPage = 1;
   List<Widget> pages = const <Widget>[
     ExercisePage(),
+    TrainingRecordPage(),
     EquipPage(),
     SettingPage(),
   ];
@@ -44,6 +47,10 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(
             icon: Icon(Icons.accessibility_new),
             label: 'WORKOUT',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.history),
+            label: 'RECORD',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.fitness_center),
