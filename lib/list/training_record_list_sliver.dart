@@ -5,6 +5,7 @@ import 'package:vizor/components/atoms/vizor_frame.dart';
 import 'package:workout_app/api/equip_api.dart';
 import 'package:workout_app/api/training_record_api.dart';
 import 'package:workout_app/dialog/equip_dialog.dart';
+import 'package:workout_app/dialog/training_record_dialog.dart';
 import 'package:workout_app/utils/toast_helper.dart';
 
 import '../models/training_record_model.dart';
@@ -121,92 +122,123 @@ class TrainingRecordListSliverState extends State<TrainingRecordListSliver> {
             return _buildProgressIndicator();
           } else {
             final TrainingRecordModel item = _items[index];
-            return Dismissible(
-              key: Key(item.id.toString()),
-              confirmDismiss: (DismissDirection direction) async {
-                showDeleteAlertDialog(context, item, index);
-              },
-              background: Container(
-                alignment: Alignment.centerRight,
-                child: const Padding(
-                  padding: EdgeInsets.only(right: 16),
-                  child: Icon(Icons.delete, color: Colors.white),
-                ),
-              ),
-              child: Center(
-                  child: Container(
-                height: 100,
-                width: MediaQuery.of(context).size.width,
-                child: VizorFrame(
-                    lineStroke: 2,
-                    cornerStroke: 6,
-                    lineColor: Color(0xFFFDFDFD),
-                    color: Color(0xFF101010),
-                    child: Container(
-                        padding: EdgeInsets.all(20),
-                        child: Column(
-                          children: [
-                            Expanded(
-                                child: Row(
+            return GestureDetector(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return TrainingRecordDialog(
+                        weight: item.weight.toDouble(),
+                        reps: item.reps.toDouble(),
+                        note: item.note,
+                      );
+                    },
+                  ).then((result) {
+                    if (result != false) {
+                      TrainingRecordApi.patch(
+                              item.id,
+                              item.equip?.id.toInt() ?? 0,
+                              result["weight"],
+                              result["reps"],
+                              result["note"])
+                          .then((apiResult) {
+                        if (apiResult) {
+                          ToastHelper.success("Record updated");
+
+                          resetList();
+                        } else {
+                          ToastHelper.fail("Failed to update record");
+                        }
+                      });
+                    }
+                  });
+                },
+                child: Dismissible(
+                  key: Key(item.id.toString()),
+                  confirmDismiss: (DismissDirection direction) async {
+                    showDeleteAlertDialog(context, item, index);
+                  },
+                  background: Container(
+                    alignment: Alignment.centerRight,
+                    child: const Padding(
+                      padding: EdgeInsets.only(right: 16),
+                      child: Icon(Icons.delete, color: Colors.white),
+                    ),
+                  ),
+                  child: Center(
+                      child: Container(
+                    height: 100,
+                    width: MediaQuery.of(context).size.width,
+                    child: VizorFrame(
+                        lineStroke: 2,
+                        cornerStroke: 6,
+                        lineColor: Color(0xFFFDFDFD),
+                        color: Color(0xFF101010),
+                        child: Container(
+                            padding: EdgeInsets.all(20),
+                            child: Column(
                               children: [
                                 Expanded(
-                                    child: Text(
-                                  "EQUIP",
-                                  style: TextStyle(
-                                      color: Color(0xFF9F9F9F),
-                                      fontWeight: FontWeight.bold),
+                                    child: Row(
+                                  children: [
+                                    Expanded(
+                                        child: Text(
+                                      "EQUIP",
+                                      style: TextStyle(
+                                          color: Color(0xFF9F9F9F),
+                                          fontWeight: FontWeight.bold),
+                                    )),
+                                    Expanded(
+                                        child: Text(item.equip?.name ?? "-",
+                                            style: TextStyle(
+                                                color: Color(0xFF9F9F9F)))),
+                                  ],
                                 )),
                                 Expanded(
-                                    child: Text(item.equip?.name ?? "-",
-                                        style: TextStyle(
-                                            color: Color(0xFF9F9F9F)))),
+                                    child: Row(
+                                  children: [
+                                    Expanded(
+                                        child: Text("WEIGHT",
+                                            style: TextStyle(
+                                                color: Color(0xFF9F9F9F),
+                                                fontWeight: FontWeight.bold))),
+                                    Expanded(
+                                        child: Text(item.weight.toString(),
+                                            style: TextStyle(
+                                                color: Color(0xFF9F9F9F)))),
+                                  ],
+                                )),
+                                Expanded(
+                                    child: Row(
+                                  children: [
+                                    Expanded(
+                                        child: Text("REPS",
+                                            style: TextStyle(
+                                                color: Color(0xFF9F9F9F),
+                                                fontWeight: FontWeight.bold))),
+                                    Expanded(
+                                        child: Text(item.reps.toString(),
+                                            style: TextStyle(
+                                                color: Color(0xFF9F9F9F)))),
+                                  ],
+                                )),
+                                Expanded(
+                                    child: Row(
+                                  children: [
+                                    Expanded(
+                                        child: Text("NOTE",
+                                            style: TextStyle(
+                                                color: Color(0xFF9F9F9F)))),
+                                    Expanded(
+                                        child: Text(item.note.toString(),
+                                            style: TextStyle(
+                                                color: Color(0xFF9F9F9F)))),
+                                  ],
+                                )),
                               ],
-                            )),
-                            Expanded(
-                                child: Row(
-                              children: [
-                                Expanded(
-                                    child: Text("WEIGHT",
-                                        style: TextStyle(
-                                            color: Color(0xFF9F9F9F),
-                                            fontWeight: FontWeight.bold))),
-                                Expanded(
-                                    child: Text(item.weight.toString(),
-                                        style: TextStyle(
-                                            color: Color(0xFF9F9F9F)))),
-                              ],
-                            )),
-                            Expanded(
-                                child: Row(
-                              children: [
-                                Expanded(
-                                    child: Text("REPS",
-                                        style: TextStyle(
-                                            color: Color(0xFF9F9F9F),
-                                            fontWeight: FontWeight.bold))),
-                                Expanded(
-                                    child: Text(item.reps.toString(),
-                                        style: TextStyle(
-                                            color: Color(0xFF9F9F9F)))),
-                              ],
-                            )),
-                            Expanded(
-                                child: Row(
-                              children: [
-                                Expanded(
-                                    child: Text("NOTE",
-                                        style: TextStyle(
-                                            color: Color(0xFF9F9F9F)))),
-                                Expanded(
-                                    child: Text(item.note.toString(),
-                                        style: TextStyle(
-                                            color: Color(0xFF9F9F9F)))),
-                              ],
-                            )),
-                          ],
-                        ))),
-              )),
-            );
+                            ))),
+                  )),
+                ));
           }
         },
         childCount: _items.length + 1,

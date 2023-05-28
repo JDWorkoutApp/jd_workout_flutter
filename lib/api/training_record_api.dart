@@ -28,7 +28,19 @@ class TrainingRecordApi {
   }
 
   static Future<bool> patch(
-      int id, int equipId, double weight, int reps, String note) async {
+      int id, int equipId, double weight, double reps, String note) async {
+    final response = await ApiClient().patch(ApiClient.getUri('/record/$id'),
+        body: {
+          'equip_id': equipId.toString(),
+          'weight': weight.toString(),
+          'reps': reps.toString(),
+          'note': note,
+        });
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed update');
+    }
+
     return true;
   }
 
