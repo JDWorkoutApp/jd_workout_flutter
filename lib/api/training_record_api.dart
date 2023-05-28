@@ -14,7 +14,8 @@ class TrainingRecordApi {
       final response = await ApiClient().post(ApiClient.getUri('/record/'), body: {
         'equip_id': equipId.toString(),
         'weight': weight.toString(),
-        'reps': reps.toString(),
+        // todo: temp for prevent backend not accept float error
+        'reps': reps.toInt().toString(),
         'note': note,
       });
 
