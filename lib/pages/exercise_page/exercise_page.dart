@@ -310,11 +310,8 @@ class _ExercisePageState extends State<ExercisePage> {
                     padding: EdgeInsets.symmetric(vertical: 5),
                     color: Colors.transparent,
                     child: VizorFrame(
-                        gradient: LinearGradient(
-                            colors: [Color(0xFF7D34B9), Color(0xFF091752)]),
                         lineStroke: 1.5,
                         cornerStroke: 4.5,
-                        lineColor: Color(0xFFFF40E8),
                         child: Container(
                           height: 20,
                           width: 100,
@@ -324,7 +321,6 @@ class _ExercisePageState extends State<ExercisePage> {
                             style: TextStyle(
                               fontSize: 13,
                               fontWeight: FontWeight.bold,
-                              color: Color(0xFF5CC5FF),
                             ),
                           )),
                         )),
