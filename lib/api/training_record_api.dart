@@ -4,6 +4,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:workout_app/models/training_record_summary_list_model.dart';
 import 'package:workout_app/utils/api_client.dart';
 
+import '../models/traning_record/training_record_list.dart';
+
 class TrainingRecordApi {
   static final String? baseAPIUrl = dotenv.env['BASE_API_URL'];
 
@@ -40,6 +42,18 @@ class TrainingRecordApi {
     Map<String, dynamic> json = jsonDecode(body);
 
     TrainingRecordSummaryListModel trainingData = TrainingRecordSummaryListModel.fromJson(json);
+
+    return trainingData;
+  }
+
+  static Future<TrainingRecordListModel> get(int page) async {
+    final response = await ApiClient().get(
+        ApiClient.getUri('/record/?perPage=30&currentPage=$page'));
+    var body = response.body;
+    Map<String, dynamic> json = jsonDecode(body);
+
+    TrainingRecordListModel trainingData =
+        TrainingRecordListModel.fromJson(json);
 
     return trainingData;
   }
