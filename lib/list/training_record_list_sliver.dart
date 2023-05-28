@@ -75,7 +75,8 @@ class TrainingRecordListSliverState extends State<TrainingRecordListSliver> {
     });
   }
 
-  void showDeleteAlertDialog(BuildContext context, TrainingRecordModel item, int index) {
+  void showDeleteAlertDialog(
+      BuildContext context, TrainingRecordModel item, int index) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -113,7 +114,7 @@ class TrainingRecordListSliverState extends State<TrainingRecordListSliver> {
   @override
   Widget build(BuildContext context) {
     return SliverFixedExtentList(
-      itemExtent: 200,
+      itemExtent: 100,
       delegate: SliverChildBuilderDelegate(
         (context, index) {
           if (index == _items.length) {
@@ -134,44 +135,76 @@ class TrainingRecordListSliverState extends State<TrainingRecordListSliver> {
               ),
               child: Center(
                   child: Container(
-                height: 200,
+                height: 100,
                 width: MediaQuery.of(context).size.width,
-                // padding: new EdgeInsets.all(30.0),
                 child: VizorFrame(
+                    lineStroke: 2,
+                    cornerStroke: 6,
                     lineColor: Color(0xFFFDFDFD),
                     color: Color(0xFF101010),
-                    child: Column(
-                      children: [
-                        Expanded(
-                            child: Row(
+                    child: Container(
+                        padding: EdgeInsets.all(20),
+                        child: Column(
                           children: [
-                            Expanded(child: Text("EQUIP")),
-                            Expanded(child: Text(item.equip?.name ?? "-")),
+                            Expanded(
+                                child: Row(
+                              children: [
+                                Expanded(
+                                    child: Text(
+                                  "EQUIP",
+                                  style: TextStyle(
+                                      color: Color(0xFF9F9F9F),
+                                      fontWeight: FontWeight.bold),
+                                )),
+                                Expanded(
+                                    child: Text(item.equip?.name ?? "-",
+                                        style: TextStyle(
+                                            color: Color(0xFF9F9F9F)))),
+                              ],
+                            )),
+                            Expanded(
+                                child: Row(
+                              children: [
+                                Expanded(
+                                    child: Text("WEIGHT",
+                                        style: TextStyle(
+                                            color: Color(0xFF9F9F9F),
+                                            fontWeight: FontWeight.bold))),
+                                Expanded(
+                                    child: Text(item.weight.toString(),
+                                        style: TextStyle(
+                                            color: Color(0xFF9F9F9F)))),
+                              ],
+                            )),
+                            Expanded(
+                                child: Row(
+                              children: [
+                                Expanded(
+                                    child: Text("REPS",
+                                        style: TextStyle(
+                                            color: Color(0xFF9F9F9F),
+                                            fontWeight: FontWeight.bold))),
+                                Expanded(
+                                    child: Text(item.reps.toString(),
+                                        style: TextStyle(
+                                            color: Color(0xFF9F9F9F)))),
+                              ],
+                            )),
+                            Expanded(
+                                child: Row(
+                              children: [
+                                Expanded(
+                                    child: Text("NOTE",
+                                        style: TextStyle(
+                                            color: Color(0xFF9F9F9F)))),
+                                Expanded(
+                                    child: Text(item.note.toString(),
+                                        style: TextStyle(
+                                            color: Color(0xFF9F9F9F)))),
+                              ],
+                            )),
                           ],
-                        )),
-                        Expanded(
-                            child: Row(
-                          children: [
-                            Expanded(child: Text("WEIGHT")),
-                            Expanded(child: Text(item.weight.toString())),
-                          ],
-                        )),
-                        Expanded(
-                            child: Row(
-                          children: [
-                            Expanded(child: Text("REPS")),
-                            Expanded(child: Text(item.reps.toString())),
-                          ],
-                        )),
-                        Expanded(
-                            child: Row(
-                          children: [
-                            Expanded(child: Text("NOTE")),
-                            Expanded(child: Text(item.note.toString())),
-                          ],
-                        )),
-                      ],
-                    )),
+                        ))),
               )),
             );
           }
