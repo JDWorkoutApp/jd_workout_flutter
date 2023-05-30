@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import '../equip_page/equip_page.dart';
+import '../exercise_page/exercise_page.dart';
 import '../record_page/training_record_page.dart';
-import '../pages/equip_page/equip_page.dart';
-import '../pages/setting_page/setting_page.dart';
-import '../pages/exercise_page/exercise_page.dart';
+import '../setting_page/setting_page.dart';
 
 class HomePage extends StatefulWidget {
   HomePage({Key? key, required this.title, this.checkAppVersion = false}) : super(key: key);
