@@ -44,7 +44,8 @@ dependencies:
       url: https://github.com/tinghaolai/vizor.git
       ref: master
   animated_glitch: ^1.1.0
-  flutter_launcher_icons: ^0.8.1
+  flutter_launcher_icons: ^0.13.1
+  sentry_flutter: ^7.4.2
 
 
   # The following adds the Cupertino Icons font to your application.

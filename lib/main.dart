@@ -5,10 +5,21 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:workout_app/utils/auth_helper.dart';
 import 'oauth/firebase_options.dart';
+import 'package:sentry_flutter/sentry_flutter.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
+
+  if (dotenv.env['SENTRY_DSN'] != null) {
+    await SentryFlutter.init(
+      (options) {
+        options.dsn = dotenv.env['SENTRY_DSN'];
+        options.tracesSampleRate = 1.0;
+      },
+      appRunner: () => runApp(MyApp()),
+    );
+  }
 
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
