@@ -44,12 +44,18 @@ dependencies:
       url: https://github.com/tinghaolai/vizor.git
       ref: master
   animated_glitch: ^1.1.0
+  flutter_launcher_icons: ^0.8.1
 
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   social_login_buttons: ^1.0.7
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/app.jpg"
 
 dev_dependencies:
   flutter_test:
