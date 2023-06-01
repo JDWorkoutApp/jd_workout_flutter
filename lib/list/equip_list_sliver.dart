@@ -1,5 +1,6 @@
 import 'package:animated_glitch/animated_glitch.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:vizor/components/atoms/vizor_button.dart';
 import 'package:vizor/components/atoms/vizor_frame.dart';
 import 'package:workout_app/api/equip_api.dart';
@@ -56,6 +57,22 @@ class EquipListSliverState extends State<EquipListSliver> {
     });
 
     _loadMoreItems();
+  }
+
+  Future<void> uploadImage(equipId, equipName) async {
+    final ImagePicker picker = ImagePicker();
+    final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+    if (image == null) {
+      return;
+    }
+
+    EquipApi.uploadImage(equipId, equipName, image).then((value) {
+      if (value) {
+        ToastHelper.success("Upload success");
+      } else {
+        ToastHelper.fail("Upload fail");
+      }
+    });
   }
 
   Future<void> _loadMoreItems() async {
@@ -166,7 +183,11 @@ class EquipListSliverState extends State<EquipListSliver> {
                             flex: 2,
                             child: Padding(
                               padding: EdgeInsets.only(left: 20.0),
-                              child: VizorFrame(
+                              child: GestureDetector(
+                                onTap: () {
+                                  uploadImage(item.equip.id, item.equip.name);
+                                },
+                                child: VizorFrame(
                                   child: Container(
                                 height: 100,
                                 child: AnimatedGlitch(
@@ -182,7 +203,8 @@ class EquipListSliverState extends State<EquipListSliver> {
                                       _equipImageList[equipImageIndex],
                                       fit: BoxFit.cover,
                                     )),
-                              )),
+                              ))
+                              ),
                             )),
                         Expanded(
                           flex: 8,
