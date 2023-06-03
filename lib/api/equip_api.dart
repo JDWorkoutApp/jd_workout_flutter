@@ -33,7 +33,7 @@ class EquipApi {
     return true;
   }
 
-  static Future<bool> uploadImage(int id, String name, XFile image) async {
+  static Future<bool> uploadImage(int id, XFile image) async {
     var request = http.MultipartRequest('PATCH', ApiClient.getUri('/equip/$id'));
 
     var file = http.MultipartFile.fromBytes('image', await image.readAsBytes(),
@@ -41,7 +41,6 @@ class EquipApi {
 
     request.files.add(file);
 
-    request.fields['name'] = name;
     var response = await ApiClient().send(request);
     if (response.statusCode != 200) {
       throw Exception('Failed upload');

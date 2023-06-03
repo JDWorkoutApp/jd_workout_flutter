@@ -59,14 +59,14 @@ class EquipListSliverState extends State<EquipListSliver> {
     _loadMoreItems();
   }
 
-  Future<void> uploadImage(equipId, equipName) async {
+  Future<void> uploadImage(equipId) async {
     final ImagePicker picker = ImagePicker();
     final XFile? image = await picker.pickImage(source: ImageSource.gallery);
     if (image == null) {
       return;
     }
 
-    EquipApi.uploadImage(equipId, equipName, image).then((value) {
+    EquipApi.uploadImage(equipId, image).then((value) {
       if (value) {
         ToastHelper.success("Upload success");
       } else {
@@ -185,7 +185,7 @@ class EquipListSliverState extends State<EquipListSliver> {
                               padding: EdgeInsets.only(left: 20.0),
                               child: GestureDetector(
                                 onTap: () {
-                                  uploadImage(item.equip.id, item.equip.name);
+                                  uploadImage(item.equip.id);
                                 },
                                 child: VizorFrame(
                                   child: Container(
