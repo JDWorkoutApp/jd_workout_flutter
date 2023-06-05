@@ -33,21 +33,23 @@ class EquipApi {
     return true;
   }
 
-  static Future<bool> uploadImage(int id, XFile image) async {
-    var request = http.MultipartRequest('PATCH', ApiClient.getUri('/equip/$id'));
+static Future<bool> uploadImage(int id, XFile image) async {
+  var request = http.MultipartRequest('PATCH', ApiClient.getUri('/equip/$id'));
 
-    var file = http.MultipartFile.fromBytes('image', await image.readAsBytes(),
-        contentType: MediaType('image', 'jpeg'));
+  var imageBytes = await image.readAsBytes();
+  var file = http.MultipartFile.fromBytes('image', imageBytes,
+      filename: image.name,
+      contentType: MediaType('image', 'jpeg'));
 
-    request.files.add(file);
+  request.files.add(file);
 
-    var response = await ApiClient().send(request);
-    if (response.statusCode != 200) {
-      throw Exception('Failed upload');
-    }
-
-    return true;
+  var response = await ApiClient().send(request);
+  if (response.statusCode != 200) {
+    throw Exception('Failed upload');
   }
+
+  return true;
+}
 
   static Future<bool> delete(int id) async {
     final response = await ApiClient().delete(ApiClient.getUri('/equip/$id'));
