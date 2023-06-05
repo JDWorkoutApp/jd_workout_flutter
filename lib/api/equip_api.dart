@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:workout_app/models/equip_summary_list_model.dart';
 import 'package:workout_app/utils/api_client.dart';
@@ -33,12 +34,12 @@ class EquipApi {
     return true;
   }
 
-static Future<bool> uploadImage(int id, XFile image) async {
+static Future<bool> uploadImage(int id, CroppedFile image) async {
   var request = http.MultipartRequest('PATCH', ApiClient.getUri('/equip/$id'));
 
   var imageBytes = await image.readAsBytes();
   var file = http.MultipartFile.fromBytes('image', imageBytes,
-      filename: image.name,
+      filename: image.path.split('/').last + '.jpg',
       contentType: MediaType('image', 'jpeg'));
 
   request.files.add(file);

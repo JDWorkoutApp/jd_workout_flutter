@@ -1,5 +1,6 @@
 import 'package:animated_glitch/animated_glitch.dart';
 import 'package:flutter/material.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:vizor/components/atoms/vizor_button.dart';
 import 'package:vizor/components/atoms/vizor_frame.dart';
@@ -66,13 +67,38 @@ class EquipListSliverState extends State<EquipListSliver> {
       return;
     }
 
-    EquipApi.uploadImage(equipId, image).then((value) {
-      if (value) {
-        ToastHelper.success("Upload success");
-      } else {
-        ToastHelper.fail("Upload fail");
+    if (context.mounted) {
+      CroppedFile? croppedFile = await ImageCropper()
+          .cropImage(sourcePath: image.path, aspectRatioPresets: [
+        CropAspectRatioPreset.square,
+        CropAspectRatioPreset.ratio3x2,
+        CropAspectRatioPreset.original,
+        CropAspectRatioPreset.ratio4x3,
+        CropAspectRatioPreset.ratio16x9
+      ], uiSettings: [
+        AndroidUiSettings(
+            toolbarTitle: 'Crop',
+            cropGridColor: Colors.black,
+            initAspectRatio: CropAspectRatioPreset.original,
+            lockAspectRatio: false),
+        IOSUiSettings(title: 'Crop'),
+        WebUiSettings(
+          context: context,
+        ),
+      ]);
+
+      if (croppedFile == null) {
+        return;
       }
-    });
+
+      EquipApi.uploadImage(equipId, croppedFile).then((value) {
+        if (value) {
+          ToastHelper.success("Upload success");
+        } else {
+          ToastHelper.fail("Upload fail");
+        }
+      });
+    }
   }
 
   Future<void> _loadMoreItems() async {
