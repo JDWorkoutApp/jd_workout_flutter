@@ -153,6 +153,7 @@ class _ExercisePageState extends State<ExercisePage> {
                             Expanded(
                               flex: 7,
                                 child: TextFormField(
+                              keyboardType: TextInputType.number,
                               inputFormatters: [
                                     FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))
                               ],
@@ -181,6 +182,7 @@ class _ExercisePageState extends State<ExercisePage> {
                             Expanded(
                               flex: 7,
                                 child: TextFormField(
+                                  keyboardType: TextInputType.number,
                                   inputFormatters: [
                                     FilteringTextInputFormatter.allow(RegExp(r'^\d+\.?\d{0,2}'))
                                   ],
@@ -189,7 +191,7 @@ class _ExercisePageState extends State<ExercisePage> {
                               cursorColor: Colors.white,
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
-                                  return 'Please enter weight';
+                                  return 'Please enter reps';
                                 }
 
                                 return null;
