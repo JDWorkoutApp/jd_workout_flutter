@@ -1,5 +1,9 @@
 # workout_app
 
+## Android Play Store
+
+[Link](https://play.google.com/store/apps/details?id=com.govel.workout&hl=zh-TW)
+
 ## Dev requirement
 
 * touch `.env` file in root of the project
