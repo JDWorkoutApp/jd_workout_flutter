@@ -34,6 +34,17 @@ class EquipApi {
     return true;
   }
 
+  static Future<bool> updateWeights(int id, List<double> weights) async {
+    final response = await ApiClient().put(ApiClient.getUri('/equip/$id/weight'),
+        body: {'weights': jsonEncode(weights) });
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed update');
+    }
+
+    return true;
+  }
+
 static Future<bool> uploadImage(int id, CroppedFile image) async {
   var request = http.MultipartRequest('PATCH', ApiClient.getUri('/equip/$id'));
 
