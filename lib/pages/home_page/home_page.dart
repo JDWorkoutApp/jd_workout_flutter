@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../utils/app_version_checker.dart';
 import '../equip_page/equip_page.dart';
 import '../exercise_page/exercise_page.dart';
 import '../record_page/training_record_page.dart';
@@ -24,16 +25,8 @@ class _HomePageState extends State<HomePage> {
 
   int currentPage = 0;
 
-  @override
-  void initState() {
-    super.initState();
-    if (widget.checkAppVersion) {
-      checkAppVersion();
-    }
-  }
-
-  void checkAppVersion() {
-    // Implement the logic to check the app version here
+  void checkAppVersion(BuildContext context) {
+    AppVersionChecker.instance.checkAppVersion(context);
   }
 
   void handlePageTap(int value) {
@@ -44,6 +37,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.checkAppVersion) {
+      checkAppVersion(context);
+    }
+
     return Scaffold(
       body: pages[currentPage],
       bottomNavigationBar: BottomNavigationBar(

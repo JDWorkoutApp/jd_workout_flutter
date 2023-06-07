@@ -87,7 +87,7 @@ class AppVersionChecker {
 
   launchAppStore() async {
     const url =
-        'https://play.google.com/store/apps/details?id=your_app_package_id';
+        'https://play.google.com/store/apps/details?id=com.govel.workout';
 
     final Uri _url = Uri.parse(url);
     if (!await launchUrl(_url)) {
