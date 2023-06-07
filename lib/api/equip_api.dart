@@ -35,8 +35,12 @@ class EquipApi {
   }
 
   static Future<bool> updateWeights(int id, List<double> weights) async {
-    final response = await ApiClient().put(ApiClient.getUri('/equip/$id/weight'),
-        body: json.encode({'weights': weights}));
+    final response =
+        await ApiClient().put(ApiClient.getUri('/equip/$id/weight'),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: json.encode({'weights': weights}));
 
     if (response.statusCode != 200) {
       throw Exception('Failed update');
