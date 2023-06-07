@@ -31,10 +31,9 @@ class _EquipWeightDialogState extends State<EquipWeightDialog> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8.0),
               child: TextFormField(
-                initialValue: _EquipWeights[i].toString(),
-                keyboardType:
-                    TextInputType.numberWithOptions(decimal: true),
-                inputFormatters: [
+                  initialValue: _EquipWeights[i].toString(),
+                  keyboardType: TextInputType.number,
+                  inputFormatters: [
                   FilteringTextInputFormatter.allow(
                       RegExp(r'^\d*\.?\d*'))
                 ],
