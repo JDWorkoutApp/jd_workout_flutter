@@ -8,6 +8,7 @@ import 'package:workout_app/api/equip_api.dart';
 import 'package:workout_app/dialog/equip_dialog.dart';
 import 'package:workout_app/utils/toast_helper.dart';
 
+import '../dialog/equip_weights_dialog.dart';
 import '../models/equip_summary_model.dart';
 
 class EquipListSliver extends StatefulWidget {
@@ -277,7 +278,17 @@ class EquipListSliverState extends State<EquipListSliver> {
                                         });
                                       }),
                                   VizorButton(
-                                      label: Text("WEIGHT"), onPressed: () {}),
+                                      label: Text("WEIGHT"),
+                                      onPressed: () {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) {
+                                            return EquipWeightDialog();
+                                          },
+                                        ).then((result) {
+                                          print(result);
+                                        });
+                                      }),
                                   VizorButton(
                                       label: Text("DELETE"), onPressed: () {
                                         showDeleteAlertDialog(context, item, index);
