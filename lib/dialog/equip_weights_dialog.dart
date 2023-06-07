@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 class EquipWeightDialog extends StatefulWidget {
   var weights;
 
-  EquipWeightDialog({this.weights = ''});
+  EquipWeightDialog({this.weights = null});
 
   @override
   _EquipWeightDialogState createState() => _EquipWeightDialogState();
@@ -15,7 +15,9 @@ class _EquipWeightDialogState extends State<EquipWeightDialog> {
     @override
   void initState() {
     super.initState();
-    _EquipWeights = widget.weights;
+    if (widget.weights != null) {
+      _EquipWeights = widget.weights;
+    }
   }
 
   @override
