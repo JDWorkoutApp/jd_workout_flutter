@@ -286,7 +286,14 @@ class EquipListSliverState extends State<EquipListSliver> {
                                             return EquipWeightDialog();
                                           },
                                         ).then((result) {
-                                          print(result);
+                                          EquipApi.updateWeights(
+                                            item.equip.id,
+                                            result
+                                          ).then((value) => {
+                                            ToastHelper.success("Weight updated")
+                                          }).catchError((error) {
+                                            ToastHelper.fail("Failed to update weight");
+                                          });
                                         });
                                       }),
                                   VizorButton(
