@@ -2,7 +2,7 @@ import 'equip_model.dart';
 
 class TrainingRecordModel {
   final int id;
-  final int weight;
+  final double weight;
   final int reps;
   final int sets;
   final List<String>? notes;
