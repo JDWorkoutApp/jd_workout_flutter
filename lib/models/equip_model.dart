@@ -21,7 +21,7 @@ factory EquipModel.fromJson(Map<String, dynamic> json) {
     return EquipModel(
       id: json['id'],
       name: json['name'],
-      note: json['note'],
+      note: json['note'] ?? '',
       records: json['records'] != null ? List<EquipRecordsModel>.from(
         json['records'].map((record) => EquipRecordsModel.fromJson(record)),
       ) : null,
