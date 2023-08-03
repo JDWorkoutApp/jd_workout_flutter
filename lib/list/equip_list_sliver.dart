@@ -283,9 +283,13 @@ class EquipListSliverState extends State<EquipListSliver> {
                                         showDialog(
                                           context: context,
                                           builder: (BuildContext context) {
-                                            return EquipWeightDialog();
+                                            return EquipWeightDialog(weights: item.equip.weights);
                                           },
                                         ).then((result) {
+                                          if (!result) {
+                                            return;
+                                          }
+
                                           EquipApi.updateWeights(
                                             item.equip.id,
                                             result
