@@ -143,7 +143,13 @@ class ExerciseListSliverState extends State<ExerciseListSliver> {
                                     VizorFrame(
                                       child: Container(
                                         height: 50,
-                                        child: Image.asset(
+                                        child:
+                                        equipment.image != null ?
+                                        Image.network(
+                                          equipment.image!,
+                                          fit: BoxFit.cover,
+                                        ) :
+                                        Image.asset(
                                           _equipImageList[Random().nextInt(3)],
                                           fit: BoxFit.cover,
                                         ),
