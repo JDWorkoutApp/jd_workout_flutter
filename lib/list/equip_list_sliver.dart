@@ -224,13 +224,17 @@ class EquipListSliverState extends State<EquipListSliver> {
                                           const Duration(milliseconds: 200),
                                       level: 1.2,
                                       distortionShift:
-                                          const DistortionShift(count: 3),
+                                      const DistortionShift(count: 3),
                                     ),
-                                    child: Image.asset(
-                                      _equipImageList[equipImageIndex],
-                                      fit: BoxFit.cover,
-                                    )),
-                              ))
+                                  child: item.equip.image != null ?
+                                  Image.network(
+                                    item.equip.image ?? '',
+                                    fit: BoxFit.cover,
+                                  ) : Image.asset(
+                                    _equipImageList[equipImageIndex],
+                                    fit: BoxFit.cover,
+                                  )),
+                                ))
                               ),
                             )),
                         Expanded(

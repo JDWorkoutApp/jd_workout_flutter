@@ -6,6 +6,7 @@ class EquipModel {
   int id;
   String name;
   String note;
+  String ?image;
   List<double> ?weights;
   List<EquipRecordsModel> ?records;
 
@@ -15,6 +16,7 @@ class EquipModel {
     required this.note,
     this.weights,
     this.records,
+    this.image,
   });
 
 factory EquipModel.fromJson(Map<String, dynamic> json) {
@@ -28,6 +30,7 @@ factory EquipModel.fromJson(Map<String, dynamic> json) {
       weights: json['weights'] != null ? List<double>.from(
         json['weights'].map((weight) => weight.toDouble()),
       ) : null,
+      image: json['image'] ?? null,
     );
   }
 }
