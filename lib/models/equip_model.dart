@@ -25,6 +25,9 @@ factory EquipModel.fromJson(Map<String, dynamic> json) {
       records: json['records'] != null ? List<EquipRecordsModel>.from(
         json['records'].map((record) => EquipRecordsModel.fromJson(record)),
       ) : null,
+      weights: json['weights'] != null ? List<double>.from(
+        json['weights'].map((weight) => weight.toDouble()),
+      ) : null,
     );
   }
 }
