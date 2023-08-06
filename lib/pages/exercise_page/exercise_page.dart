@@ -56,6 +56,8 @@ class _ExercisePageState extends State<ExercisePage> {
   GlobalKey<ExerciseListSliverState> exerciseListSliverKey =
       GlobalKey<ExerciseListSliverState>();
 
+  List<int> commonReps = [1, 3, 5, 8, 10, 12, 15, 20, 25];
+
   @override
   Widget build(BuildContext context) {
     // Color borderColor = Color(0xFF27CEED);
@@ -67,7 +69,7 @@ class _ExercisePageState extends State<ExercisePage> {
         body: CustomScrollView(
       slivers: [
         SliverAppBar(
-          toolbarHeight: 280,
+          toolbarHeight: 360,
           backgroundColor: appBarBackgroundColor,
           title: VizorFrame(
             lineColor: borderColor,
@@ -75,7 +77,7 @@ class _ExercisePageState extends State<ExercisePage> {
             cornerStroke: 7.0,
             cornerLengthRatio: 0.1,
             child: Container(
-                height: 230,
+                height: 310,
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: darkColor,
@@ -172,6 +174,28 @@ class _ExercisePageState extends State<ExercisePage> {
                         ),
                       ),
                       Expanded(
+                          child: Row(
+                            // selectedEquip.equip.weights to buttons
+                            children: selectedEquip.equip.weights != null
+                                ? selectedEquip.equip.weights?.map((e) {
+                                    return Expanded(
+                                        child: Container(
+                                      margin: EdgeInsets.all(5),
+                                      child: ElevatedButton(
+                                        style: raisedButtonStyle,
+                                        onPressed: () {
+                                          setState(() {
+                                            weightController.text = e.toString();
+                                          });
+                                        },
+                                        child: Text(e.toString()),
+                                      ),
+                                    ));
+                                  }).toList() ?? []
+                                : [],
+                          )
+                      ),
+                      Expanded(
                         child: Row(
                           children: [
                             Expanded(flex: 3,child: Text('REPS', style: TextStyle(
@@ -199,6 +223,25 @@ class _ExercisePageState extends State<ExercisePage> {
                             )),
                           ],
                         ),
+                      ),
+                      Expanded(child:
+                          Row(
+                            children: commonReps.map((e) {
+                              return Expanded(
+                                  child: Container(
+                                    margin: EdgeInsets.all(5),
+                                    child: ElevatedButton(
+                                      style: raisedButtonStyle,
+                                      onPressed: () {
+                                        setState(() {
+                                          repsController.text = e.toString();
+                                        });
+                                      },
+                                      child: Text(e.toString()),
+                                    ),
+                                  ));
+                            }).toList(),
+                          )
                       ),
                       Expanded(child: Container(height: 20,)),
                       Expanded(
