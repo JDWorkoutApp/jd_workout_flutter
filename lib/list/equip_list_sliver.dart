@@ -286,7 +286,7 @@ class EquipListSliverState extends State<EquipListSliver> {
                                             return EquipWeightDialog(weights: item.equip.weights);
                                           },
                                         ).then((result) {
-                                          if (!result) {
+                                          if (result == false) {
                                             return;
                                           }
 
