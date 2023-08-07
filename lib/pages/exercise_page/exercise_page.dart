@@ -20,6 +20,16 @@ final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
   ),
 );
 
+final ButtonStyle optionButtonStyle = ElevatedButton.styleFrom(
+  onPrimary: Colors.black87,
+  primary: Colors.grey[300],
+  minimumSize: Size(40, 25),
+  padding: EdgeInsets.symmetric(horizontal: 1),
+  shape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(2)),
+  ),
+);
+
 class ExercisePage extends StatefulWidget {
   const ExercisePage({super.key});
 
@@ -69,7 +79,7 @@ class _ExercisePageState extends State<ExercisePage> {
         body: CustomScrollView(
       slivers: [
         SliverAppBar(
-          toolbarHeight: 380,
+          toolbarHeight: 410,
           backgroundColor: appBarBackgroundColor,
           title: VizorFrame(
             lineColor: borderColor,
@@ -77,7 +87,7 @@ class _ExercisePageState extends State<ExercisePage> {
             cornerStroke: 7.0,
             cornerLengthRatio: 0.1,
             child: Container(
-                height: 330,
+                height: 360,
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: darkColor,
@@ -196,14 +206,13 @@ class _ExercisePageState extends State<ExercisePage> {
                       ),
                       Expanded(
                           child: Row(
-                            // selectedEquip.equip.weights to buttons
                             children: selectedEquip.equip.weights != null
                                 ? selectedEquip.equip.weights?.map((e) {
                                     return Expanded(
                                         child: Container(
                                       margin: EdgeInsets.all(5),
                                       child: ElevatedButton(
-                                        style: raisedButtonStyle,
+                                        style: optionButtonStyle,
                                         onPressed: () {
                                           setState(() {
                                             weightController.text = e.toString();
@@ -250,15 +259,16 @@ class _ExercisePageState extends State<ExercisePage> {
                             children: commonReps.map((e) {
                               return Expanded(
                                   child: Container(
-                                    margin: EdgeInsets.all(5),
                                     child: ElevatedButton(
-                                      style: raisedButtonStyle,
+                                      style: optionButtonStyle,
                                       onPressed: () {
                                         setState(() {
                                           repsController.text = e.toString();
                                         });
                                       },
-                                      child: Text(e.toString()),
+                                      child: Text(
+                                          e.toString()
+                                      ),
                                     ),
                                   ));
                             }).toList(),
@@ -278,16 +288,15 @@ class _ExercisePageState extends State<ExercisePage> {
                                 children: selectedEquip.lastRecords?.map((e) {
                                   return Expanded(
                                       child: Container(
-                                        margin: EdgeInsets.all(5),
                                         child: ElevatedButton(
-                                          style: raisedButtonStyle,
+                                          style: optionButtonStyle,
                                           onPressed: () {
                                             setState(() {
                                               weightController.text = e.weight.toString();
                                               repsController.text = e.reps.toString();
                                             });
                                           },
-                                          child: Text(e.weight.toString() + " x " + e.reps.toString() + " x " + e.sets.toString()),
+                                          child: Text(e.weight.toString() + "x" + e.reps.toString() + "x" + e.sets.toString()),
                                         ),
                                       ));
                                 }).toList() ?? []
