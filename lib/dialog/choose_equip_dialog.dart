@@ -56,6 +56,15 @@ class _ChooseEquipDialogState extends State<ChooseEquipDialog> {
           controller: _scrollController,
           itemCount: equipList.length,
           itemBuilder: (BuildContext context, int index) {
+            String formattedDaysDifference = "";
+            if (equipList[index].lastUsed != null) {
+              DateTime now = DateTime.now();
+              DateTime? lastUsed = equipList[index].lastUsed;
+              Duration difference = now.difference(lastUsed!);
+              double daysDifference = difference.inMinutes.toDouble() / 60 / 24;
+              formattedDaysDifference = daysDifference.toStringAsFixed(2);
+            }
+
             return InkWell(
               onTap: () {
                 Navigator.of(context).pop(equipList[index]);
@@ -73,6 +82,9 @@ class _ChooseEquipDialogState extends State<ChooseEquipDialog> {
                     children: [
                       Text(equipList[index].equip.name),
                       Text(equipList[index].equip.note),
+                      equipList[index].lastUsed != null ? Text(
+                        formattedDaysDifference + " days ago",
+                      ) : SizedBox(),
                     ],
                   ),
                 ],

@@ -10,12 +10,14 @@ class EquipSummaryModel {
   final MaxWeightRecordModel ?maxWeightRecord;
   final MaxVolumeRecordModel ?maxVolumeRecord;
   final List<EquipSummaryLastRecordModel> ?lastRecords;
+  final DateTime ?lastUsed;
 
   EquipSummaryModel({
     required this.equip,
     this.maxWeightRecord,
     this.maxVolumeRecord,
     this.lastRecords,
+    this.lastUsed,
   });
 
   factory EquipSummaryModel.fromJson(Map<String, dynamic> json) {
@@ -31,6 +33,9 @@ class EquipSummaryModel {
         ? List<EquipSummaryLastRecordModel>.from(
           json['lastRecords'].map((record) => EquipSummaryLastRecordModel.fromJson(record)),
         )
+        : null,
+      lastUsed: json['lastUsed'] != null
+        ? DateTime.parse(json['lastUsed'])
         : null,
     );
   }
