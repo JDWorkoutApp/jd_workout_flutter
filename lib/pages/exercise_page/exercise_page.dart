@@ -145,6 +145,27 @@ class _ExercisePageState extends State<ExercisePage> {
                         ),
                       ),
                       Expanded(
+                          child: Row(
+                        children: [
+                          Expanded(
+                            flex: 2,
+                            child: Text('MAX WEIGHT: ' + (selectedEquip.maxWeightRecord?.weight.toString() ?? "-"),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold)),
+                          ),
+                          Expanded(
+                            flex: 5,
+                            child: Text('MAX WEIGHT REPS: ' + (selectedEquip.maxWeightRecord?.reps.toString() ?? "-"),
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.bold)),
+                          ),
+                        ],
+                      )),
+                      Expanded(
                         child: Row(
                           children: [
                             Expanded(flex: 3,child: Text('WEIGHT', style: TextStyle(
