@@ -69,7 +69,7 @@ class _ExercisePageState extends State<ExercisePage> {
         body: CustomScrollView(
       slivers: [
         SliverAppBar(
-          toolbarHeight: 360,
+          toolbarHeight: 380,
           backgroundColor: appBarBackgroundColor,
           title: VizorFrame(
             lineColor: borderColor,
@@ -77,7 +77,7 @@ class _ExercisePageState extends State<ExercisePage> {
             cornerStroke: 7.0,
             cornerLengthRatio: 0.1,
             child: Container(
-                height: 310,
+                height: 330,
                 padding: EdgeInsets.all(10),
                 decoration: BoxDecoration(
                   color: darkColor,
@@ -263,6 +263,36 @@ class _ExercisePageState extends State<ExercisePage> {
                                   ));
                             }).toList(),
                           )
+                      ),
+                      Expanded(
+                        child: Text('LAST RECORDS', style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold
+                            )),
+                      ),
+                      Expanded(
+                        child:
+                        selectedEquip.lastRecords != null
+                            ? Row(
+                                children: selectedEquip.lastRecords?.map((e) {
+                                  return Expanded(
+                                      child: Container(
+                                        margin: EdgeInsets.all(5),
+                                        child: ElevatedButton(
+                                          style: raisedButtonStyle,
+                                          onPressed: () {
+                                            setState(() {
+                                              weightController.text = e.weight.toString();
+                                              repsController.text = e.reps.toString();
+                                            });
+                                          },
+                                          child: Text(e.weight.toString() + " x " + e.reps.toString() + " x " + e.sets.toString()),
+                                        ),
+                                      ));
+                                }).toList() ?? []
+                            )
+                            : Container(),
                       ),
                       Expanded(child: Container(height: 20,)),
                       Expanded(
