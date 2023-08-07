@@ -60,9 +60,22 @@ class _ChooseEquipDialogState extends State<ChooseEquipDialog> {
               onTap: () {
                 Navigator.of(context).pop(equipList[index]);
               },
-              child: ListTile(
-                title: Text(equipList[index].equip.name),
-                subtitle: Text(equipList[index].equip.note),
+              child: Row(
+                children: [
+                  equipList[index].equip.image != null ? Image.network(
+                    equipList[index].equip.image ?? "",
+                    width: 50,
+                    height: 50,
+                  ) : SizedBox(width: 50, height: 50),
+                  SizedBox(width: 10),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(equipList[index].equip.name),
+                      Text(equipList[index].equip.note),
+                    ],
+                  ),
+                ],
               ),
             );
           },
