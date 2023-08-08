@@ -54,3 +54,9 @@ Finally, you should be able to open google OAuth in login page.
 ### Build .aab
 
 `flutter build appbundle --no-sound-null-safety`
+
+### Debug in mobile
+
+* enter `debug` mode in mobile
+* connect mobile to computer
+* `flutter run --no-sound-null-safety`
