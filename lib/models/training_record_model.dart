@@ -22,7 +22,7 @@ class TrainingRecordModel {
   factory TrainingRecordModel.fromJson(Map<String, dynamic> json) {
     return TrainingRecordModel(
       id: json['id'],
-      weight: json['weight'],
+      weight: json['weight'].toDouble(),
       reps: json['reps'],
       sets: json['sets'],
       notes: json['notes'] != null ? List<String>.from(json['notes']) : null,
