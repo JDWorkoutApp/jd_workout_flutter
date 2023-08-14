@@ -36,10 +36,11 @@ Finally, you should be able to open google OAuth in login page.
   * can't hot reload
 * compile from android studio / IntelliJ IDEA Ultimate
   * can hot reload
-* add `--no-sound-null-safety` option
-  * for IntelliJ IDEA Ultimate, click `three-dot-icon` beside `run` button,
-    then click `Edit`, then add `--no-sound-null-safety` in `Additional run args` field
-* Flutter version: `3.7.12`
+* (deprecated, library version solved)
+  * ~~add `--no-sound-null-safety` option~~
+    * ~~for IntelliJ IDEA Ultimate, click `three-dot-icon` beside `run` button,
+      then click `Edit`, then add `--no-sound-null-safety` in `Additional run args` field~~
+* Flutter version: `3.10.2`
 
 ### Flutter install package
 
@@ -49,11 +50,13 @@ Finally, you should be able to open google OAuth in login page.
 
 `flutter build apk --release`
 
-`flutter build apk --release --no-sound-null-safety`
+~~`flutter build apk --release --no-sound-null-safety`~~
 
 ### Build .aab
 
-`flutter build appbundle --no-sound-null-safety`
+`flutter build appbundle`
+
+~~`flutter build appbundle --no-sound-null-safety`~~
 
 ### Debug in mobile
 
