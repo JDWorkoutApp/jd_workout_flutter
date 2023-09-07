@@ -13,10 +13,10 @@ class EquipSummaryLastRecordModel {
 
   factory EquipSummaryLastRecordModel.fromJson(Map<String, dynamic> json) {
     return EquipSummaryLastRecordModel(
-      reps: json['reps'],
-      sets: json['sets'],
-      volume: json['volume'],
-      weight: json['weight'],
+      reps: double.parse(json['reps'].toString()),
+      sets: double.parse(json['sets'].toString()),
+      volume: double.parse(json['volume'].toString()),
+      weight: double.parse(json['weight'].toString()),
     );
   }
 }
