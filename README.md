@@ -1,3 +1,8 @@
+# Project phases
+
+1. [x] Workout app
+2. [ ] general purpose app
+
 # workout_app
 
 ## Android Play Store
